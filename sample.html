@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Witch Hunt - Women in Tech Challenge 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #000000;
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+        }
+        
+        /* Welcome Screen Animations */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOutWelcome 1s ease-out 3.5s forwards;
+            overflow: hidden;
+        }
+        
+        /* Fire Effect */
+        .fire-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .flame {
+            position: absolute;
+            bottom: -50px;
+            width: 40px;
+            height: 100px;
+            background: linear-gradient(to top, 
+                rgba(255, 69, 0, 0.9) 0%,
+                rgba(255, 140, 0, 0.7) 30%,
+                rgba(255, 165, 0, 0.5) 60%,
+                rgba(255, 215, 0, 0.2) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            filter: blur(8px);
+            animation: flameRise 3s ease-in infinite;
+            opacity: 0;
+        }
+        
+        @keyframes flameRise {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-50vh) scale(1.5) rotate(5deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(2) rotate(10deg);
+            }
+        }
+        
+        .ember {
+            position: absolute;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 140, 0, 0.9);
+            border-radius: 50%;
+            animation: emberFloat 4s ease-out infinite;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
+        }
+        
+        @keyframes emberFloat {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeOutWelcome {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .logo-animate {
+            animation: logoEntrance 2s ease-out forwards;
+        }
+        
+        @keyframes logoEntrance {
+            0% {
+                transform: scale(0.3) rotate(-360deg);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.15) rotate(20deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .welcome-text {
+            animation: slideUpFade 1.5s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }

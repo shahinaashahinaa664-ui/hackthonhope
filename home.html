@@ -19,7 +19,7 @@
             font-weight: 900;
         }
         
-        /* --- EXISTING ANIMATIONS & STYLES (Kept exactly as before) --- */
+        /* --- EXISTING ANIMATIONS & STYLES --- */
         .welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
@@ -113,7 +113,7 @@
             100% { transform: translate(100px, -1000px) scale(0); opacity: 0; }
         }
         
-        /* --- PROBLEM STATEMENTS / THEMES CSS (NEW) --- */
+        /* --- PROBLEM STATEMENTS / THEMES CSS --- */
         .theme-card {
             background: #111;
             border-radius: 15px;
@@ -184,7 +184,161 @@
             line-height: 1.5;
         }
 
-        /* --- CHATBOT & MODAL STYLES (Existing + New Form Styles) --- */
+        /* --- NEW SCHEDULE TIMELINE STYLES --- */
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* The vertical center line */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, #ff6500, #9333ea, #ff6500);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: 0 0 15px rgba(255, 101, 0, 0.6);
+            border-radius: 2px;
+        }
+
+        /* Container around content */
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            opacity: 0; /* For animation */
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* The circles on the timeline */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: #000;
+            border: 4px solid #ff6500;
+            top: 50%;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px #ff6500;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover::after {
+            background-color: #ff6500;
+            transform: scale(1.2);
+        }
+
+        /* Place the container to the left */
+        .left {
+            left: 0;
+        }
+
+        /* Place the container to the right */
+        .right {
+            left: 50%;
+        }
+
+        /* Add arrows to the left container (pointing right) */
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 50%;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent rgba(255, 165, 0, 0.3);
+            transform: translateY(-50%);
+        }
+
+        /* Add arrows to the right container (pointing left) */
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 50%;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent rgba(255, 165, 0, 0.3) transparent transparent;
+            transform: translateY(-50%);
+        }
+
+        /* Fix the circle for containers on the right side */
+        .right::after {
+            left: -10px;
+        }
+
+        /* The actual content box */
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 101, 0, 0.2);
+            border-color: rgba(255, 165, 0, 0.6);
+        }
+
+        /* Media queries - Responsive timeline on screens less than 600px wide */
+        @media screen and (max-width: 768px) {
+            /* Place the timelime to the left */
+            .timeline-container::after {
+                left: 31px;
+            }
+            
+            /* Full-width containers */
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            /* Make sure that all arrows are pointing leftwards */
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent rgba(255, 165, 0, 0.3) transparent transparent;
+            }
+
+            /* Make sure all circles are at the same spot */
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            /* Make all right containers behave like the left ones */
+            .right {
+                left: 0%;
+            }
+        }
+
+        /* --- CHATBOT & MODAL STYLES --- */
         .chatbot-button {
             position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%;
             background: linear-gradient(135deg, #ff6500 0%, #ff8c00 100%);
@@ -301,12 +455,13 @@
                     <button class="md:hidden border border-orange-400 rounded-full px-4 py-2 text-sm tracking-wide" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMobileMenu(this)">Menu</button>
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="#hero" class="hover:text-orange-400 transition-colors duration-300 font-medium">Home</a>
-                        <a href="#View" class="hover:text-orange-400 transition-colors duration-300 font-medium">About</a>
+                        <a href="#about" class="hover:text-orange-400 transition-colors duration-300 font-medium">About</a>
                         <a href="#themes" class="hover:text-orange-400 transition-colors duration-300 font-medium">Themes</a>
                         <a href="#program" class="hover:text-orange-400 transition-colors duration-300 font-medium">Tracks</a>
+                        <a href="#schedule" class="hover:text-orange-400 transition-colors duration-300 font-medium">Schedule</a>
                         <a href="#prizes" class="hover:text-orange-400 transition-colors duration-300 font-medium">Prizes</a>
                         <a href="#contact" class="hover:text-orange-400 transition-colors duration-300 font-medium">Contact</a>
-                        <button onclick="openRegisterModal()" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full transition-all duration-300 pulse-glow font-semibold">Register Now</button>
+                        <button onclick="openRegisterModal()" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full transition-all duration-300 pulse-glow font-semibold">Pre-Register Now</button>
                     </div>
                 </div>
                 <div id="mobileMenu" class="md:hidden hidden flex-col space-y-4 pb-4 text-center text-lg border-t border-orange-400/30 pt-4">
@@ -314,9 +469,10 @@
                     <a href="#about" class="hover:text-orange-400 transition-colors duration-300 font-medium block">About</a>
                     <a href="#themes" class="hover:text-orange-400 transition-colors duration-300 font-medium block">Themes</a>
                     <a href="#program" class="hover:text-orange-400 transition-colors duration-300 font-medium block">Tracks</a>
+                    <a href="#schedule" class="hover:text-orange-400 transition-colors duration-300 font-medium block">Schedule</a>
                     <a href="#prizes" class="hover:text-orange-400 transition-colors duration-300 font-medium block">Prizes</a>
                     <a href="#contact" class="hover:text-orange-400 transition-colors duration-300 font-medium block">Contact</a>
-                    <button onclick="openRegisterModal()" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full transition-all duration-300 font-semibold w-full">Register Now</button>
+                    <button onclick="openRegisterModal()" class="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full transition-all duration-300 font-semibold w-full">Pre-Register Now</button>
                 </div>
                 
                 <div class="flex items-center justify-center space-x-8 pt-3 border-t border-orange-400 border-opacity-20">
@@ -397,7 +553,7 @@
             <p class="text-lg text-gray-300 max-w-4xl leading-relaxed mb-6">Witch (Women In Technology Challenge) Hunt Hackathon is envisaged to be a movement that changes the narrative of the traditional witch hunt by offering an alternative and more powerful vision—women and girls with intuitive, empathetic, and technical skills emerging as changemakers and leaders in the AI era.</p>
             <div class="about-highlight text-gray-800">
                 <h3> • EmpowerHer Hackathon: Reimagining Solutions with AI</h3>
-                <p class="text-base leading-relaxed mb-4">The hackathon is designed to ignite the power of girls and women across India to tackle pressing social challenges—Public Education, Climate Action, Public Health &amp; Well‑Being, and Smart Cities—by harnessing the potential of AI and Technology.</p>
+                <p class="text-base leading-relaxed mb-4">The hackathon is designed to ignite the power of girls and women across India to tackle pressing social challenges—Education, Climate Action, Health &amp; Well‑Being, and Smart Cities—by harnessing the potential of AI and Technology.</p>
                 <h4 class="text-lg font-semibold text-emerald-600 mb-2 text-center"> → Our Core Objectives</h4>
                 <ul class="list-disc list-inside text-base leading-relaxed text-gray-700 space-y-2">
                     <li>• Deepen understanding of the scale and impact of these challenges.</li>
@@ -429,7 +585,7 @@
                 <div class="theme-card theme-edu">
                     <div class="watermark">🎓</div>
                     <div class="icon-box">📖</div>
-                    <h3 class="theme-title">PUBLIC EDUCATION</h3>
+                    <h3 class="theme-title">EDUCATION</h3>
                     <p class="theme-desc">Closing learning gaps and creating virtual labs to democratize access to quality education.</p>
                 </div>
 
@@ -443,7 +599,7 @@
                 <div class="theme-card theme-health">
                     <div class="watermark">⚕️</div>
                     <div class="icon-box">🏥</div>
-                    <h3 class="theme-title">PUBLIC HEALTH</h3>
+                    <h3 class="theme-title">HEALTH AND WELL-BEING</h3>
                     <p class="theme-desc">Bridging healthcare gaps with low-cost diagnostics and well-being monitoring systems.</p>
                 </div>
 
@@ -466,16 +622,83 @@
             <h2 class="hero-title text-5xl text-orange-400 mb-6">Program Tracks</h2>
             <div class="space-y-6">
                 <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 01</p><h3 class="text-3xl font-bold text-white">AI for Public Health</h3></div>
-                    <p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Rapid diagnostics, maternal health monitoring, and inclusive care assistants.</p>
+                    <div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 01</p>
+                    <h3 class="text-3xl font-bold text-white">AI for Education</h3></div>
+                    <p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Personalized learning, virtual tutors, and accessibility tools for democratizing education.</p>
                 </div>
                 <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between">
                     <div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 02</p><h3 class="text-3xl font-bold text-white">Climate Resilience</h3></div>
                     <p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Forecasting, agri-intelligence, and community-led adaptation tools.</p>
                 </div>
                 <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 03</p><h3 class="text-3xl font-bold text-white">Civic & Safety Tech</h3></div>
-                    <p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Legal literacy, incident reporting, and financial inclusion for women.</p>
+                    <div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 03</p><h3 class="text-3xl font-bold text-white">Health and Well-being</h3></div>
+                    <p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Rapid diagnostics, maternal health monitoring, and inclusive care assistants.</p>
+                </div>
+                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 04</p><h3 class="text-3xl font-bold text-white">Smart Cities</h3></div>
+                    <p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Urban planning, traffic management, and public safety systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule" class="py-24 px-6 bg-gradient-to-b from-gray-900 to-black relative z-10 overflow-hidden">
+        <div class="container mx-auto">
+            <h2 class="hero-title text-5xl text-orange-400 mb-16 text-center">Event Roadmap</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="absolute -top-4 -right-4 text-4xl bg-black rounded-full p-2 border border-orange-500">📝</div>
+                        <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Registration & Onboarding</h3>
+                        <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">Jan 2026 - Feb 2026</p>
+                        <p class="text-gray-300">Participants register, form teams, and get onboarded onto the platform.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="absolute -top-4 -left-4 text-4xl bg-black rounded-full p-2 border border-orange-500">🚀</div>
+                        <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Official Launch</h3>
+                        <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">Jan 24th, 2026</p>
+                        <p class="text-gray-300">Kick-off event on the National Day for Girl Child. Theme reveals and keynote sessions.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="absolute -top-4 -right-4 text-4xl bg-black rounded-full p-2 border border-orange-500">💻</div>
+                        <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Prototype Development</h3>
+                        <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">Feb 2026 - Mar 2026</p>
+                        <p class="text-gray-300">Teams work on their AI solutions. Mentorship sessions and webinars conducted.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="absolute -top-4 -left-4 text-4xl bg-black rounded-full p-2 border border-orange-500">📤</div>
+                        <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Final Submission</h3>
+                        <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">March 2026</p>
+                        <p class="text-gray-300">Deadline for code, presentation, and demo video submissions.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="absolute -top-4 -right-4 text-4xl bg-black rounded-full p-2 border border-orange-500">📢</div>
+                        <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Shortlist Announcement</h3>
+                        <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">March 2026</p>
+                        <p class="text-gray-300">Top teams from each track are announced for the Grand Finale.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="absolute -top-4 -left-4 text-4xl bg-black rounded-full p-2 border border-orange-500">🏆</div>
+                        <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Grand Finale & Demo Day</h3>
+                        <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">April 2026</p>
+                        <p class="text-gray-300">Live presentations to jury, awards ceremony, and celebration.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -516,7 +739,7 @@
                 </div>
             </div>
             <div class="mt-16 text-center">
-                <p class="text-gray-300 text-lg bg-white/5 inline-block px-8 py-3 rounded-full border border-white/10"><span class="mr-2">📜</span> All participants receive Trophies & Certificates (Total value: ₹ 1,00,000)</p>
+                <p class="text-gray-300 text-lg bg-white/5 inline-block px-8 py-3 rounded-full border border-white/10"><span class="mr-2">📜</span> All participants receive Trophies & Certificates</p>
             </div>
         </div>
     </section>
@@ -525,7 +748,7 @@
         <div class="container mx-auto max-w-4xl text-center">
             <h2 class="hero-title text-5xl text-orange-400 mb-6">Stay in Touch</h2>
             <p class="text-gray-300 mb-12">Have questions about eligibility, partnerships, or volunteering? Drop us a note and the team will respond within two working days.</p>
-            <a href="mailto:info@witchhunt.org" class="inline-flex items-center justify-center px-10 py-4 rounded-full border border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white transition-all duration-300">info@witchhunt.org</a>
+            <a href="mailto:info@thewitch-hunt.com" class="inline-flex items-center justify-center px-10 py-4 rounded-full border border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white transition-all duration-300">info@thewitch-hunt.com</a>
         </div>
     </section>
 
@@ -539,47 +762,34 @@
     <div id="registerModal" class="reg-modal">
         <div class="reg-modal-content">
             <div class="reg-header">
-                <h3 class="text-2xl font-bold text-orange-400 hero-title">Hackathon Registration</h3>
+                <h3 class="text-2xl font-bold text-orange-400 hero-title">Hackathon Pre-Registration</h3>
                 <button onclick="closeRegisterModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
             </div>
             <div class="reg-body">
                 <form id="hackathonForm" onsubmit="handleRegistration(event)">
                     <div class="form-group"><label class="form-label">Full Name <span>*</span></label><input type="text" class="form-input" placeholder="Enter your full name" required></div>
-                    <div class="form-group"><label class="form-label">Email Address <span>*</span></label><input type="email" class="form-input" placeholder="Enter your email" required></div>
-                    <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" placeholder="Enter your phone number"></div>
-                    <div class="form-group"><label class="form-label">University or Company</label><input type="text" class="form-input" placeholder="Enter your university or company name"></div>
+                    
+                    <div class="form-group"><label class="form-label">College/Corporate Email Address <span>*</span></label><input type="email" class="form-input" placeholder="Enter your college or corporate email" required></div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Team Members (Names & Emails)</label>
+                        <textarea class="form-input h-24" placeholder="Enter names and emails for any team members (e.g., Jane Doe: jane@corp.com, Ali Khan: ali@college.edu)"></textarea>
+                        <p class="text-xs text-gray-500 mt-2">A maximum of 4 members per team (including yourself) is allowed.</p>
+                    </div>
 
                     <div class="form-group">
-                        <label class="form-label">ID Proof (PDF/Doc/Image, Max 5MB) <span>*</span></label>
+                        <label class="form-label">Photo of College/Company ID & Masked Aadhaar (Max 5MB) <span>*</span></label>
                         <input type="file" id="idProof" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="form-input" required onchange="validateFileSize(this)">
                         <p id="fileError" class="text-red-500 text-sm mt-2 hidden">File size exceeds 5MB limit. Please upload a smaller file.</p>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Are you registering as an individual or a team? <span>*</span></label>
-                        <div class="radio-group">
-                            <label class="radio-option"><input type="radio" name="regType" value="individual" checked onchange="toggleTeamFields()"><div class="radio-tile">A Individual</div></label>
-                            <label class="radio-option"><input type="radio" name="regType" value="team" onchange="toggleTeamFields()"><div class="radio-tile">B Team</div></label>
-                        </div>
-                    </div>
-                    <div id="teamFields" class="form-group hidden"><label class="form-label">Team Name</label><input type="text" class="form-input" placeholder="Enter your team name"></div>
-                    <div class="form-group">
-                        <label class="form-label">Experience Level <span>*</span></label>
-                        <div class="space-y-2">
-                            <label class="radio-option block"><input type="radio" name="experience" value="beginner" required><div class="radio-tile justify-start px-4">A Beginner</div></label>
-                            <label class="radio-option block"><input type="radio" name="experience" value="intermediate"><div class="radio-tile justify-start px-4">B Intermediate</div></label>
-                            <label class="radio-option block"><input type="radio" name="experience" value="advanced"><div class="radio-tile justify-start px-4">C Advanced</div></label>
-                        </div>
-                    </div>
-                    <div class="form-group"><label class="form-label">Skills and Technologies</label><input type="text" class="form-input" placeholder="e.g. Python, React, AI/ML..."></div>
-                    <div class="form-group"><label class="form-label">Project Idea (if any)</label><textarea class="form-input h-24" placeholder="Describe your project idea"></textarea></div>
-                    <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-[1.02]">Submit Registration</button>
+                    <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-[1.02]">Submit Pre-Registration</button>
                 </form>
 
                 <div id="successMessage" class="hidden text-center py-10">
                     <div class="text-6xl mb-4">🎉</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Thank You for Registering!</h3>
-                    <p class="text-gray-400">We have received your registration. We will contact you with further details soon.</p>
+                    <h3 class="text-2xl font-bold text-white mb-2">Thank You for Pre-Registering!</h3>
+                    <p class="text-gray-400">We have received your **pre-registration**. We will contact you with the link to the official hackathon platform soon!</p>
                     <button onclick="closeRegisterModal()" class="mt-8 px-6 py-2 border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white transition">Close</button>
                 </div>
             </div>
@@ -622,6 +832,22 @@
             particlesContainer.appendChild(particle);
         }
         
+        // Timeline Animation Observer
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.2 }) : null;
+
+        if (timelineObserver) {
+            timelineItems.forEach(item => timelineObserver.observe(item));
+        } else {
+            timelineItems.forEach(item => item.classList.add('in-view'));
+        }
+
         // Chatbot
         function toggleChatbot() {
             const chatWindow = document.getElementById('chatbotWindow');
@@ -651,7 +877,7 @@
                 appendMessage(message, 'user');
                 input.value = '';
                 setTimeout(() => {
-                    appendMessage('Thanks for your message! For detailed information about the Witch Hunt hackathon, please check our website sections or contact us at info@witchhunt.org', 'bot');
+                    appendMessage('Thanks for your message! For detailed information about the Witch Hunt hackathon, please check our website sections or contact us at info@thewitch-hunt.com', 'bot');
                 }, 600);
             }
         }
@@ -667,21 +893,17 @@
         function openRegisterModal() { document.getElementById('registerModal').style.display = 'flex'; }
         function closeRegisterModal() { document.getElementById('registerModal').style.display = 'none'; }
         
-        function toggleTeamFields() {
-            const teamFields = document.getElementById('teamFields');
-            const isTeam = document.querySelector('input[name="regType"][value="team"]').checked;
-            if (isTeam) { teamFields.classList.remove('hidden'); } else { teamFields.classList.add('hidden'); }
-        }
-
-        // NEW: File Size Validation
+        // File Size Validation
         function validateFileSize(input) {
+            if (!input.files.length) return; 
+            
             const fileSize = input.files[0].size / 1024 / 1024; // in MB
             const errorMsg = document.getElementById('fileError');
             const submitBtn = document.getElementById('submitBtn');
             
             if (fileSize > 5) {
                 errorMsg.classList.remove('hidden');
-                input.value = ""; // Clear the input
+                input.value = ""; 
                 submitBtn.disabled = true;
                 submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
             } else {
@@ -694,12 +916,18 @@
         function handleRegistration(e) {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
-            if (btn.disabled) return; // Prevent submission if file validation failed
+            if (btn.disabled) return; 
 
             const originalText = btn.textContent;
             btn.textContent = 'Submitting...';
             btn.disabled = true;
 
+            const formData = new FormData(e.target);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'idProof') data[key] = value;
+            }
+            
             setTimeout(() => {
                 document.getElementById('hackathonForm').classList.add('hidden');
                 document.getElementById('successMessage').classList.remove('hidden');

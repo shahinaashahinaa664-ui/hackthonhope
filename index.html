@@ -431,6 +431,21 @@
         }
         .radio-option input[type="radio"]:checked + .radio-tile { background: rgba(255, 101, 0, 0.1); border-color: #ff6500; color: #ff6500; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+        
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+            .countdown-value { font-size: 1.75rem; }
+            .countdown-label { font-size: 0.65rem; }
+            .hero-title { font-size: 2.5rem; }
+            h2 { font-size: 1.75rem !important; }
+        }
+        
+        @media (max-width: 640px) {
+            .countdown-item { padding: 1rem 0.75rem; }
+            .countdown-value { font-size: 1.5rem; }
+            .countdown-label { font-size: 0.6rem; letter-spacing: 0.15em; }
+        }
     </style>
 </head>
 <body class="text-white">

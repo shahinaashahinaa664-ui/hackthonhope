@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Witch Hunt - Women in Tech Challenge 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #000000;
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+        }
+
+        /* --- CUSTOM SCROLLBAR FOR ROADMAP --- */
+        .cyber-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .cyber-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05); 
+            border-radius: 4px;
+        }
+        .cyber-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff6500, #ff8c00); 
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 101, 0, 0.8);
+        }
+        .cyber-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #ff4500; 
+        }
+
+        /* --- TOP BANNER & STICKY NAV --- */
+        .top-banner {
+            background: linear-gradient(to bottom, #000000, #111111);
+            border-bottom: 1px solid rgba(255, 165, 0, 0.1);
+            padding: 20px 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        /* --- BACK TO TOP BUTTON --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 101, 0, 0.2);
+            border: 1px solid #ff6500;
+            border-radius: 50%;
+            color: #ff6500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: #ff6500;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* --- ANIMATIONS & STYLES --- */
+        .welcome-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #000000; z-index: 10000; display: flex; align-items: center; justify-content: center;
+            animation: fadeOutWelcome 1s ease-out 3.5s forwards; overflow: hidden;
+        }
+        .fire-container { position: absolute; bottom: 0; left: 0; right: 0; height: 100%; overflow: hidden; pointer-events: none; }
+        .flame {
+            position: absolute; bottom: -50px; width: 40px; height: 100px;
+            background: linear-gradient(to top, rgba(255, 69, 0, 0.9) 0%, rgba(255, 140, 0, 0.7) 30%, rgba(255, 165, 0, 0.5) 60%, rgba(255, 215, 0, 0.2) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            filter: blur(8px); animation: flameRise 3s ease-in infinite; opacity: 0;
+        }
+        @keyframes flameRise {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            50% { opacity: 0.8; transform: translateY(-50vh) scale(1.5) rotate(5deg); }
+            100% { opacity: 0; transform: translateY(-100vh) scale(2) rotate(10deg); }
+        }
+        .ember {
+            position: absolute; bottom: 0; width: 4px; height: 4px;
+            background: rgba(255, 140, 0, 0.9); border-radius: 50%;
+            animation: emberFloat 4s ease-out infinite;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.8);
+        }
+        @keyframes emberFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+        @keyframes fadeOutWelcome { to { opacity: 0; visibility: hidden; } }
+        .logo-animate { animation: logoEntrance 2s ease-out forwards; }
+        @keyframes logoEntrance {
+            0% { transform: scale(0.3) rotate(-360deg); opacity: 0; }
+            70% { transform: scale(1.15) rotate(20deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .welcome-text { animation: slideUpFade 1.5s ease-out 0.5s forwards; opacity: 0; }
+        @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
+        .text-glow { animation: textGlow 2s ease-in-out infinite; }
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 165, 0, 0.6); }
+            50% { text-shadow: 0 0 30px rgba(255, 165, 0, 0.9); }
+        }
+        .loading-bar { animation: loadingProgress 3s ease-out forwards; }
+        @keyframes loadingProgress { 0% { width: 0%; } 100% { width: 100%; } }
+        .hero-section { opacity: 0; animation: fadeInHero 1.5s ease-out 4s forwards; }
+        @keyframes fadeInHero { to { opacity: 1; } }
+        .hero-bg { background: #000000; background-attachment: fixed; position: relative; overflow: hidden; }
+        .hero-bg::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 101, 0, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+        @keyframes bgPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6500 0%, #ffa500 50%, #ff6500 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; background-size: 200% auto; animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift { 0%, 100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+        .stat-card {
+            backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 165, 0, 0.3); transition: all 0.4s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05); box-shadow: 0 25px 50px rgba(255, 101, 0, 0.4);
+            border-color: rgba(255, 165, 0, 0.8); background: rgba(255, 165, 0, 0.1);
+        }
+        .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(255, 165, 0, 0.9); }
+        }
+        .scroll-indicator { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+        .hero-content { animation: slideInLeft 1.2s ease-out 4.5s backwards; }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        .hero-visual { animation: slideInRight 1.2s ease-out 4.7s backwards; }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        .particle {
+            position: absolute; width: 4px; height: 4px; background: rgba(255, 165, 0, 0.6);
+            border-radius: 50%; animation: particleFloat 10s infinite;
+        }
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
+            10% { opacity: 1; } 90% { opacity: 1; }
+            100% { transform: translate(100px, -1000px) scale(0); opacity: 0; }
+        }
+
+        /* --- TECH IMAGE FRAME --- */
+        .tech-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 101, 0, 0.2);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            animation: floatTech 6s ease-in-out infinite;
+        }
+        @keyframes floatTech {
+            0%, 100% { transform: translateY(0); box-shadow: 0 0 30px rgba(255, 101, 0, 0.2); }
+            50% { transform: translateY(-20px); box-shadow: 0 20px 50px rgba(255, 101, 0, 0.4); }
+        }
+        .tech-frame::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(255, 165, 0, 0.1) 50%);
+            background-size: 100% 4px; z-index: 2; pointer-events: none;
+        }
+        .tech-frame::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(-100%); animation: scanline 3s linear infinite; z-index: 3; pointer-events: none;
+        }
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+
+        /* --- ADVANCED COUNTDOWN STYLES --- */
+        .countdown-advanced {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 165, 0, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.1), inset 0 0 20px rgba(255, 165, 0, 0.05);
+            animation: neonPulse 4s infinite alternate;
+        }
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.1), inset 0 0 20px rgba(255, 165, 0, 0.05); border-color: rgba(255, 165, 0, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(255, 165, 0, 0.3), inset 0 0 40px rgba(255, 165, 0, 0.1); border-color: rgba(255, 165, 0, 0.8); }
+        }
+        .countdown-advanced::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,165,0,0.1) 0%, transparent 60%);
+            animation: rotateBg 10s linear infinite; z-index: 0;
+        }
+        @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .cd-content { position: relative; z-index: 1; }
+        .cd-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .cd-box:hover { transform: translateY(-5px); background: rgba(255, 165, 0, 0.1); border-color: rgba(255, 165, 0, 0.4); }
+        .cd-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, #fff 0%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(255, 140, 0, 0.5));
+        }
+        
+        /* --- ABOUT HIGHLIGHT (DARK MODE) --- */
+        .about-highlight {
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            margin: 2rem auto;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .about-highlight h3 {
+            color: #ff9f43;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 159, 67, 0.3);
+        }
+        .about-highlight h4 {
+            color: #2ecc71;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+        }
+        .about-highlight strong { color: #fff; }
+        .about-know-section { padding: 40px; background-color: #000; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 3rem; }
+        .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .info-card { flex: 1; min-width: 280px; max-width: 320px; background: #111; color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); padding: 20px; opacity: 0; transform: scale(0.9); transition: all 0.6s ease, box-shadow 0.3s ease, transform 0.3s ease; cursor: pointer; }
+        .info-card h3 { color: #f39c12; text-align: center; margin-bottom: 12px; }
+        .info-card.visible { opacity: 1; transform: scale(1); }
+        .info-card:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 8px 20px rgba(241, 196, 15, 0.6); }
+
+        /* --- THEMES & SCHEDULE --- */
+        .theme-card { background: #111; border-radius: 15px; padding: 25px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; border: 1px solid rgba(255,255,255,0.1); }
+        .theme-card:hover { transform: translateY(-5px); }
+        .theme-card .watermark { position: absolute; top: 10px; right: 10px; font-size: 80px; opacity: 0.1; transform: rotate(10deg); pointer-events: none; }
+        .theme-card .icon-box { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; position: relative; z-index: 10; }
+        .theme-edu { box-shadow: inset 0 0 20px rgba(217, 119, 6, 0.1); border-top: 4px solid #d97706; }
+        .theme-edu:hover { box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); }
+        .theme-edu .icon-box { background: rgba(217, 119, 6, 0.2); color: #d97706; box-shadow: 0 0 15px rgba(217, 119, 6, 0.4); }
+        .theme-climate { box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.1); border-top: 4px solid #22c55e; }
+        .theme-climate:hover { box-shadow: 0 0 25px rgba(34, 197, 94, 0.4); }
+        .theme-climate .icon-box { background: rgba(34, 197, 94, 0.2); color: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+        .theme-health { box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.1); border-top: 4px solid #ef4444; }
+        .theme-health:hover { box-shadow: 0 0 25px rgba(239, 68, 68, 0.4); }
+        .theme-health .icon-box { background: rgba(239, 68, 68, 0.2); color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+        .theme-cities { box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1); border-top: 4px solid #3b82f6; }
+        .theme-cities:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
+        .theme-cities .icon-box { background: rgba(59, 130, 246, 0.2); color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+        .theme-title { font-family: 'Orbitron', monospace; font-weight: 700; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+        .theme-desc { color: #9ca3af; font-size: 0.9rem; line-height: 1.5; }
+
+        .timeline-container { position: relative; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .timeline-container::after { content: ''; position: absolute; width: 4px; background: linear-gradient(to bottom, #ff6500, #9333ea, #ff6500); top: 0; bottom: 0; left: 50%; margin-left: -2px; box-shadow: 0 0 15px rgba(255, 101, 0, 0.6); border-radius: 2px; }
+        .timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; opacity: 0; transform: translateY(50px); transition: all 0.6s ease-out; }
+        .timeline-item.in-view { opacity: 1; transform: translateY(0); }
+        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: #000; border: 4px solid #ff6500; top: 50%; border-radius: 50%; z-index: 1; box-shadow: 0 0 10px #ff6500; transition: all 0.3s ease; }
+        .timeline-item:hover::after { background-color: #ff6500; transform: scale(1.2); }
+        .left { left: 0; }
+        .right { left: 50%; }
+        .left::before { content: " "; height: 0; position: absolute; top: 50%; width: 0; z-index: 1; right: 30px; border: medium solid white; border-width: 10px 0 10px 10px; border-color: transparent transparent transparent rgba(255, 165, 0, 0.3); transform: translateY(-50%); }
+        .right::before { content: " "; height: 0; position: absolute; top: 50%; width: 0; z-index: 1; left: 30px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent rgba(255, 165, 0, 0.3) transparent transparent; transform: translateY(-50%); }
+        .right::after { left: -10px; }
+        .timeline-content { padding: 20px 30px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); position: relative; border-radius: 15px; border: 1px solid rgba(255, 165, 0, 0.2); transition: all 0.3s ease; }
+        .timeline-content:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 101, 0, 0.2); border-color: rgba(255, 165, 0, 0.6); }
+        @media screen and (max-width: 768px) {
+            .timeline-container::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::before { left: 60px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent rgba(255, 165, 0, 0.3) transparent transparent; }
+            .left::after, .right::after { left: 21px; }
+            .right { left: 0%; }
+        }
+
+        /* --- CHATBOT & MODAL --- */
+        .chatbot-button { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #ff6500 0%, #ff8c00 100%); box-shadow: 0 8px 30px rgba(255, 101, 0, 0.6); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; transition: all 0.3s ease; animation: chatbotPulse 2s ease-in-out infinite; }
+        .chatbot-button:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(255, 101, 0, 0.8); }
+        @keyframes chatbotPulse { 0%, 100% { box-shadow: 0 8px 30px rgba(255, 101, 0, 0.6); } 50% { box-shadow: 0 8px 50px rgba(255, 101, 0, 0.9); } }
+        .chatbot-window { position: fixed; bottom: 120px; right: 30px; width: 380px; height: 550px; background: rgba(0, 0, 0, 0.95); border: 2px solid rgba(255, 101, 0, 0.5); border-radius: 20px; box-shadow: 0 20px 60px rgba(255, 101, 0, 0.3); z-index: 1000; display: none; flex-direction: column; backdrop-filter: blur(10px); }
+        .chatbot-window.active { display: flex; animation: slideUpFade 0.3s ease-out; }
+        .chatbot-header { background: linear-gradient(135deg, #ff6500 0%, #ff8c00 100%); padding: 20px; border-radius: 18px 18px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .chatbot-close { cursor: pointer; font-size: 24px; color: white; transition: transform 0.2s; }
+        .chatbot-close:hover { transform: rotate(90deg); }
+        .chatbot-messages { flex: 1; padding: 20px; overflow-y: auto; }
+        .chatbot-input-area { padding: 15px; border-top: 1px solid rgba(255, 101, 0, 0.3); }
+        .chatbot-input { width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 101, 0, 0.3); border-radius: 25px; color: white; outline: none; }
+        .chatbot-input:focus { border-color: rgba(255, 101, 0, 0.6); }
+        
+        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: flex-end; }
+        .modal-content { background: #1c1c1c; color: #fff; padding: 24px; border-radius: 20px 20px 0 0; max-width: 600px; width: 100%; animation: slideUp 0.5s ease; touch-action: none; }
+        .modal-content h3 { color: #f39c12; margin-bottom: 12px; }
+        .close { float: right; font-size: 24px; cursor: pointer; color: #f1c40f; }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        /* REGISTRATION MODAL */
+        .reg-modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); overflow-y: auto; align-items: center; justify-content: center; padding: 20px; }
+        .reg-modal-content { background: #111; border: 1px solid #ff6500; border-radius: 12px; width: 100%; max-width: 600px; padding: 0; position: relative; box-shadow: 0 0 30px rgba(255, 101, 0, 0.2); animation: fadeInScale 0.3s ease-out; }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .reg-header { padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; }
+        .reg-body { padding: 30px; max-height: 80vh; overflow-y: auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; color: #f5f5f5; margin-bottom: 8px; font-weight: 500; }
+        .form-label span { color: #ef4444; }
+        .form-input { width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: white; transition: all 0.3s; }
+        .form-input:focus { outline: none; border-color: #ff6500; box-shadow: 0 0 0 2px rgba(255, 101, 0, 0.2); }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+</head>
+<body class="text-white">
+    <div class="welcome-screen">
+        <div class="fire-container" id="fireContainer" aria-hidden="true"></div>
+        <div class="text-center px-6 relative z-10">
+            <div class="logo-animate mb-8">
+                <div class="w-64 h-64 mx-auto rounded-full flex items-center justify-center shadow-2xl bg-white p-6">
+                    <img src="./witchhuntlogo.jpeg" alt="Witch Hunt circular logo" loading="lazy" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden w-full h-full bg-gradient-to-br from-orange-500 via-orange-600 to-orange-800 rounded-full items-center justify-center text-9xl">🔮</div>
+                </div>
+            </div>
+            <h1 class="hero-title text-6xl md:text-8xl text-orange-400 text-glow mb-6 welcome-text" style="transform: translateY(30px);">WITCH HUNT</h1>
+            <p class="text-2xl md:text-3xl text-white font-light mb-8 welcome-text" style="transform: translateY(30px); animation-delay: 1s;">Women in Tech Challenge 2026</p>
+            <div class="mt-12 welcome-text" style="transform: translateY(30px); animation-delay: 1.5s;">
+                <div class="inline-block px-8 py-4 bg-orange-500 bg-opacity-20 rounded-full border border-orange-400">
+                    <p class="text-orange-300 mb-3">Igniting your journey...</p>
+                    <div class="w-64 h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-orange-500 to-orange-300 loading-bar"></div></div>
+                </div>
+            </div>
+            <button class="mt-10 px-6 py-3 bg-white bg-opacity-10 border border-orange-400 rounded-full text-sm uppercase tracking-widest hover:bg-opacity-20 transition" onclick="skipWelcome()" aria-label="Skip intro animation">Skip Intro</button>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 pointer-events-none z-0" id="particles"></div>
+
+    <div class="top-banner flex flex-wrap justify-center items-center gap-8 md:gap-16">
+        <img src="./witchhuntlogo.jpeg" alt="Witch Hunt Logo" class="h-24 md:h-32 w-auto object-contain rounded-lg shadow-lg">
+        <img src="./AI4logo.jpeg" alt="AI4India Logo" class="h-20 md:h-28 w-auto object-contain rounded-lg bg-white/10 p-2">
+        <img src="./hopeworkslogo.jpeg" alt="Hopeworks Logo" class="h-20 md:h-28 w-auto object-contain rounded-lg bg-white/10 p-2">
+    </div>
+
+    <div class="hero-section hero-bg min-h-screen relative">
+        <header class="sticky-header">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Primary">
+                <div class="flex items-center space-x-3 lg:hidden">
+                    <img src="./witchhuntlogo.jpeg" alt="Witch Hunt Logo" class="h-10 w-auto rounded-md">
+                </div>
+
+                <div class="hidden lg:flex w-full justify-center items-center space-x-8 text-sm font-medium text-gray-300">
+                    <a href="#hero" class="hover:text-orange-400 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-orange-400 transition-colors">About</a>
+                    <a href="#themes" class="hover:text-orange-400 transition-colors">Themes</a>
+                    <a href="#program" class="hover:text-orange-400 transition-colors">Tracks</a>
+                    <a href="#schedule" class="hover:text-orange-400 transition-colors">Schedule</a>
+                    <a href="#prizes" class="hover:text-orange-400 transition-colors">Prizes</a>
+                    <a href="#contact" class="hover:text-orange-400 transition-colors">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="openRegisterModal()" class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg shadow-orange-500/30 transition-all transform hover:scale-105 whitespace-nowrap">
+                        Pre-Register
+                    </button>
+                    <button id="navToggleBtn" class="lg:hidden text-white text-2xl" onclick="toggleMobileMenu(this)">☰</button>
+                </div>
+            </nav>
+            
+            <div id="mobileMenu" class="lg:hidden hidden flex-col space-y-4 pb-4 text-center text-lg border-t border-white/10 pt-4 bg-black">
+                <a href="#hero" class="block py-2 hover:text-orange-400 mobile-link">Home</a>
+                <a href="#about" class="block py-2 hover:text-orange-400 mobile-link">About</a>
+                <a href="#themes" class="block py-2 hover:text-orange-400 mobile-link">Themes</a>
+                <a href="#program" class="block py-2 hover:text-orange-400 mobile-link">Tracks</a>
+                <a href="#schedule" class="block py-2 hover:text-orange-400 mobile-link">Schedule</a>
+                <a href="#prizes" class="block py-2 hover:text-orange-400 mobile-link">Prizes</a>
+                <a href="#contact" class="block py-2 hover:text-orange-400 mobile-link">Contact</a>
+            </div>
+        </header>
+
+        <main id="hero" class="min-h-screen flex items-center justify-center pt-12 px-6 relative z-10" role="main">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="hero-content text-left">
+                        <h1 class="text-6xl md:text-8xl font-bold text-orange-500 hero-title mb-2 tracking-tighter">WITCH HUNT</h1>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                            <span class="text-orange-500">W</span>omen <span class="text-orange-500">I</span>n <span class="text-orange-500">T</span>echnology <span class="text-orange-500">Ch</span>allenge
+                        </h2>
+                        <h3 class="text-xl text-orange-200/80 font-medium mb-6 tracking-wide">Reclaiming Innovation, Rewriting Narratives</h3>
+                        
+                        <p class="text-lg text-gray-400 mb-8 leading-relaxed max-w-lg">
+                            India's largest women-led hackathon leveraging AI to solve critical social problems. Join <span class="text-orange-400 font-bold">5,000+ women</span> creating impact at scale.
+                        </p>
+
+                        <div class="grid grid-cols-4 gap-4 mb-12">
+                            <div class="text-center">
+                                <div class="text-3xl text-orange-500 mb-2">👥</div>
+                                <p class="text-xs font-bold text-white">5,000+ Women</p>
+                                <p class="text-[10px] text-gray-400 uppercase">Participants</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl text-orange-500 mb-2">🤖</div>
+                                <p class="text-xs font-bold text-white">AI-Powered</p>
+                                <p class="text-[10px] text-gray-400 uppercase">Problem Solving</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl text-orange-500 mb-2">🤝</div>
+                                <p class="text-xs font-bold text-white">Nationwide</p>
+                                <p class="text-[10px] text-gray-400 uppercase">Mentorship</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl text-orange-500 mb-2">🏆</div>
+                                <p class="text-xs font-bold text-white">Cash Prizes &</p>
+                                <p class="text-[10px] text-gray-400 uppercase">Tech Opportunities</p>
+                            </div>
+                        </div>
+
+                        <div class="countdown-advanced max-w-lg">
+                            <div class="cd-content">
+                                <div class="flex justify-between items-end mb-6">
+                                    <p class="text-xs text-orange-300 uppercase tracking-[0.2em]">Event Launch</p>
+                                    <p class="text-sm text-white font-bold">Jan 24, 2026</p>
+                                </div>
+                                <div class="grid grid-cols-4 gap-4 text-center" id="countdownTimer">
+                                    <div class="cd-box">
+                                        <span class="cd-number" id="countdownDays">00</span>
+                                        <span class="text-[10px] text-gray-400 block uppercase tracking-wider mt-1">Days</span>
+                                    </div>
+                                    <div class="cd-box">
+                                        <span class="cd-number" id="countdownHours">00</span>
+                                        <span class="text-[10px] text-gray-400 block uppercase tracking-wider mt-1">Hours</span>
+                                    </div>
+                                    <div class="cd-box">
+                                        <span class="cd-number" id="countdownMinutes">00</span>
+                                        <span class="text-[10px] text-gray-400 block uppercase tracking-wider mt-1">Mins</span>
+                                    </div>
+                                    <div class="cd-box">
+                                        <span class="cd-number" id="countdownSeconds">00</span>
+                                        <span class="text-[10px] text-gray-400 block uppercase tracking-wider mt-1">Secs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual flex flex-col items-center relative">
+                        <div class="tech-frame w-full aspect-[4/3] mb-8 group bg-gray-900">
+                            <img src="./hacka img.jpg" 
+                                 alt="Hackathon participants working" 
+                                 class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                 onerror="this.src='https://via.placeholder.com/800x600?text=Image+Not+Found';">
+                        </div>
+                        
+                        <p class="text-gray-300 text-lg font-medium mb-6 text-center">Be Part of India's Largest AI Hackathon for Women</p>
+
+                        <div class="flex flex-col items-center animate-bounce">
+                            <span class="text-3xl text-orange-500">↓</span>
+                            <span class="text-white text-sm font-semibold mt-2">Scroll to Explore</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <section id="about" class="py-24 px-6 bg-black relative z-10">
+        <div class="container mx-auto max-w-6xl text-white">
+            <h2 class="hero-title text-5xl text-orange-400 mb-6">About Witch Hunt</h2>
+            <p class="text-lg text-gray-300 max-w-4xl leading-relaxed mb-6">
+                <span class="text-orange-500 font-bold">W</span>omen <span class="text-orange-500 font-bold">I</span>n <span class="text-orange-500 font-bold">T</span>echnology <span class="text-orange-500 font-bold">Ch</span>allenge (WITCH) Hunt Hackathon is envisaged to be a movement that changes the narrative of the traditional witch hunt by offering an alternative and more powerful vision—women and girls with intuitive, empathetic, and technical skills emerging as changemakers and leaders in the AI era.
+            </p>
+            
+            <div class="about-highlight">
+                <h3> • EmpowerHer Hackathon: Reimagining Solutions with AI</h3>
+                <p class="text-base leading-relaxed mb-4">The hackathon is designed to ignite the power of girls and women across India to tackle pressing social challenges—Education, Climate Action, Health &amp; Well‑Being, and Smart Cities—by harnessing the potential of AI and Technology.</p>
+                <h4 class="text-center font-bold"> → Our Core Objectives</h4>
+                <ul class="list-disc list-inside text-base leading-relaxed text-gray-300 space-y-3 mt-4">
+                    <li>Deepen understanding of the scale and impact of these challenges.</li>
+                    <li>Co‑create innovative solutions with stakeholders—academia, policymakers, technologists, social leaders, and corporates—on one collaborative platform.</li>
+                    <li>Across four months, participants ideate, collaborate, and design solutions that boost both <strong>learning</strong> and <strong>earning</strong> opportunities while expanding their exposure to diverse ecosystems.</li>
+                </ul>
+            </div>
+            
+            <div class="about-know-section">
+                <h3 class="text-center text-3xl font-semibold text-yellow-300 mb-8"> Know More About Us</h3>
+                <div class="card-container">
+                    <div class="info-card" data-modal="modal1"><h3>🚀 Outcome of the Hackathon</h3><p>Hands-on experience in building AI-powered solutions and sharpening critical thinking.</p></div>
+                    <div class="info-card" data-modal="modal2"><h3>📈 Scale of the Initiative</h3><p>Targeting <strong>1000 teams</strong> with majority women representation across India.</p></div>
+                    <div class="info-card" data-modal="modal3"><h3>🤝 Inclusive &amp; Equitable Spaces</h3><p>Involving girls from villages and tier-2/3 cities to evolve as AI-literate talent.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="themes" class="py-24 px-6 bg-gradient-to-b from-black to-gray-900 relative z-10">
+        <div class="container mx-auto max-w-7xl">
+            <div class="text-center mb-16">
+                <h2 class="hero-title text-5xl md:text-6xl text-white mb-4">Themes</h2>
+                <p class="text-xl text-gray-300">Identify solutions and co-create with stakeholders across these key domains.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="theme-card theme-edu"><div class="watermark">🎓</div><div class="icon-box">📖</div><h3 class="theme-title">EDUCATION</h3><p class="theme-desc">Closing learning gaps and creating virtual labs to democratize access to quality education.</p></div>
+                <div class="theme-card theme-climate"><div class="watermark">🌿</div><div class="icon-box">🌱</div><h3 class="theme-title">CLIMATE ACTION</h3><p class="theme-desc">Disaster prediction models and climate-resilient farming solutions driven by AI data.</p></div>
+                <div class="theme-card theme-health"><div class="watermark">⚕️</div><div class="icon-box">🏥</div><h3 class="theme-title">HEALTH AND WELL-BEING</h3><p class="theme-desc">Bridging healthcare gaps with low-cost diagnostics and well-being monitoring systems.</p></div>
+                <div class="theme-card theme-cities"><div class="watermark">🏢</div><div class="icon-box">🏙️</div><h3 class="theme-title">SMART CITIES</h3><p class="theme-desc">Enhancing safety through crime prevention algorithms and intelligent traffic management.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal1" class="modal"><div class="modal-content"><span class="close">&times;</span><h3>🚀 Outcome of the Hackathon</h3><p>Participants gain hands-on experience in building AI-powered solutions, explore real-world applications, and sharpen critical thinking. With mentorship, training, and sector-specific guidance, they discover how technology can transform education, health, climate, and smart cities.</p></div></div>
+    <div id="modal2" class="modal"><div class="modal-content"><span class="close">&times;</span><h3>📈 Scale of the Initiative</h3><p>Targeting <strong>1000 teams</strong> with majority women representation across India. Led by HopeWorks Foundation, it’s a nationwide movement to democratize innovation.</p></div></div>
+    <div id="modal3" class="modal"><div class="modal-content"><span class="close">&times;</span><h3>🤝 Inclusive &amp; Equitable Spaces</h3><p>By involving girls from villages and tier-2/3 cities, every phase of the hackathon becomes a gateway to learning and growth. Beneficiaries of HopeWorks Foundation evolve into an AI-literate, future-ready talent base shaping India’s next generation of changemakers.</p></div></div>
+    
+    <section id="program" class="py-24 px-6 bg-gray-900/50 relative z-10 mt-12 border-t border-white/5">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="hero-title text-5xl text-orange-400 mb-6">Program Tracks</h2>
+            <div class="space-y-6">
+                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 01</p><h3 class="text-3xl font-bold text-white">AI for Education</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Personalized learning, virtual tutors, and accessibility tools for democratizing education.</p></div>
+                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 02</p><h3 class="text-3xl font-bold text-white">Climate Resilience</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Forecasting, agri-intelligence, and community-led adaptation tools.</p></div>
+                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 03</p><h3 class="text-3xl font-bold text-white">Health and Well-being</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Rapid diagnostics, maternal health monitoring, and inclusive care assistants.</p></div>
+                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 04</p><h3 class="text-3xl font-bold text-white">Smart Cities</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Urban planning, traffic management, and public safety systems.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule" class="py-24 px-6 bg-gradient-to-b from-gray-900 to-black relative z-10 overflow-hidden">
+        <div class="container mx-auto">
+            <h2 class="hero-title text-5xl text-orange-400 mb-12 text-center">Event Roadmap</h2>
+            
+            <div class="cyber-scrollbar h-[500px] overflow-y-auto overflow-x-hidden border border-orange-500/20 rounded-xl p-4 bg-white/5 backdrop-blur-sm relative">
+                <div class="timeline-container">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="absolute -top-4 -right-4 text-4xl bg-black rounded-full p-2 border border-orange-500">📝</div>
+                            <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Registration & Onboarding</h3>
+                            <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">Jan 2026 - Feb 2026</p>
+                            <p class="text-gray-300">Participants register, form teams, and get onboarded onto the platform.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="absolute -top-4 -left-4 text-4xl bg-black rounded-full p-2 border border-orange-500">🚀</div>
+                            <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Official Launch</h3>
+                            <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">Jan 24th, 2026</p>
+                            <p class="text-gray-300">Kick-off event on the National Day for Girl Child. Theme reveals and keynote sessions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="absolute -top-4 -right-4 text-4xl bg-black rounded-full p-2 border border-orange-500">💻</div>
+                            <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Prototype Development</h3>
+                            <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">Feb 2026 - Mar 2026</p>
+                            <p class="text-gray-300">Teams work on their AI solutions. Mentorship sessions and webinars conducted.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="absolute -top-4 -left-4 text-4xl bg-black rounded-full p-2 border border-orange-500">📤</div>
+                            <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Final Submission</h3>
+                            <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">March 2026</p>
+                            <p class="text-gray-300">Deadline for code, presentation, and demo video submissions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="absolute -top-4 -right-4 text-4xl bg-black rounded-full p-2 border border-orange-500">📢</div>
+                            <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Shortlist Announcement</h3>
+                            <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">March 2026</p>
+                            <p class="text-gray-300">Top teams from each track are announced for the Grand Finale.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="absolute -top-4 -left-4 text-4xl bg-black rounded-full p-2 border border-orange-500">🏆</div>
+                            <h3 class="text-2xl font-bold text-white font-orbitron mb-2">Grand Finale & Demo Day</h3>
+                            <p class="text-orange-400 text-sm font-bold uppercase tracking-wider mb-2">April 2026</p>
+                            <p class="text-gray-300">Live presentations to jury, awards ceremony, and celebration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prizes" class="py-24 px-6 bg-black relative z-10 border-b border-white/10">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="hero-title text-5xl text-orange-400 mb-12 text-center">Awards & Prizes</h2>
+            <div class="flex justify-center mb-16">
+                <div class="inline-block px-8 py-4 bg-orange-500 bg-opacity-10 rounded-full border border-orange-400 border-opacity-50 backdrop-blur-md">
+                    <span class="text-2xl md:text-3xl font-bold text-white">Total Prize Pool: <span class="text-orange-400">₹ 19,00,000</span></span>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="stat-card p-8 rounded-2xl text-center flex flex-col items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🏆</div>
+                    <h3 class="text-2xl font-bold text-white mb-2 font-orbitron">Winning Team</h3>
+                    <div class="text-4xl font-bold text-orange-400 mb-2">₹ 2.5 Lakhs</div>
+                    <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">1 Winner per Track (4 Tracks)</p>
+                    <div class="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Total: ₹ 10,00,000</div>
+                </div>
+                <div class="stat-card p-8 rounded-2xl text-center flex flex-col items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-gray-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🥈</div>
+                    <h3 class="text-2xl font-bold text-white mb-2 font-orbitron">Runner-Up Team</h3>
+                    <div class="text-4xl font-bold text-orange-400 mb-2">₹ 1 Lakh</div>
+                    <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">1 Runner-up per Track (4 Tracks)</p>
+                    <div class="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Total: ₹ 4,00,000</div>
+                </div>
+                <div class="stat-card p-8 rounded-2xl text-center flex flex-col items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🌟</div>
+                    <h3 class="text-2xl font-bold text-white mb-2 font-orbitron">Special Mention</h3>
+                    <div class="text-4xl font-bold text-orange-400 mb-2">₹ 50,000</div>
+                    <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">Per Team (8 Teams)</p>
+                    <div class="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Total: ₹ 4,00,000</div>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <p class="text-gray-300 text-lg bg-white/5 inline-block px-8 py-3 rounded-full border border-white/10"><span class="mr-2">📜</span> All participants receive Trophies & Certificates</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="py-24 px-6 bg-black relative z-10">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="hero-title text-5xl text-orange-400 mb-6">Stay in Touch</h2>
+            <p class="text-gray-300 mb-12">Have questions about eligibility, partnerships, or volunteering? Drop us a note and the team will respond within two working days.</p>
+            <a href="mailto:info@thewitch-hunt.com" class="inline-flex items-center justify-center px-10 py-4 rounded-full border border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white transition-all duration-300">info@thewitch-hunt.com</a>
+        </div>
+    </section>
+
+    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to Top">
+        ↑
+    </button>
+
+    <div class="chatbot-button" onclick="toggleChatbot()"><div class="text-4xl text-white">💬</div></div>
+    <div class="chatbot-window" id="chatbotWindow" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle" aria-live="polite">
+        <div class="chatbot-header"><div><h3 id="chatbotTitle" class="text-white font-bold text-lg">Witch Hunt Assistant</h3><p class="text-white text-xs opacity-80">Ask us anything!</p></div><div class="chatbot-close" onclick="toggleChatbot()">✕</div></div>
+        <div class="chatbot-messages" id="chatMessages"><div class="mb-4 p-4 bg-orange-500 bg-opacity-20 rounded-2xl rounded-tl-none border border-orange-400 border-opacity-30"><p class="text-white text-sm">👋 Hi! I'm your Witch Hunt assistant. How can I help you today?</p></div></div>
+        <form class="chatbot-input-area" onsubmit="handleChatInput(event)"><label class="sr-only" for="chatInput">Send a message</label><div class="flex space-x-2"><input id="chatInput" type="text" placeholder="Type your message..." class="chatbot-input" autocomplete="off"><button type="submit" class="px-4 py-2 rounded-full bg-orange-500 text-white font-semibold hover:bg-orange-600 transition">Send</button></div></form>
+    </div>
+
+    <div id="registerModal" class="reg-modal">
+        <div class="reg-modal-content">
+            <div class="reg-header">
+                <h3 class="text-2xl font-bold text-orange-400 hero-title">Hackathon Pre-Registration</h3>
+                <button onclick="closeRegisterModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="reg-body">
+                <form id="hackathonForm" onsubmit="handleRegistration(event)">
+                    <div class="form-group"><label class="form-label">Full Name <span>*</span></label><input type="text" class="form-input" placeholder="Enter your full name" required></div>
+                    <div class="form-group"><label class="form-label">College/Corporate Email Address <span>*</span></label><input type="email" class="form-input" placeholder="Enter your college or corporate email" required></div>
+                    <div class="form-group"><label class="form-label">Team Members (Names & Emails)</label><textarea class="form-input h-24" placeholder="Enter names and emails for any team members (e.g., Jane Doe: jane@corp.com, Ali Khan: ali@college.edu)"></textarea><p class="text-xs text-gray-500 mt-2">A maximum of 4 members per team (including yourself) is allowed.</p></div>
+                    <div class="form-group"><label class="form-label">Photo of College/Company ID & Masked Aadhaar (Max 5MB) <span>*</span></label><input type="file" id="idProof" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="form-input" required onchange="validateFileSize(this)"><p id="fileError" class="text-red-500 text-sm mt-2 hidden">File size exceeds 5MB limit. Please upload a smaller file.</p></div>
+                    <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-[1.02]">Submit Pre-Registration</button>
+                </form>
+                <div id="successMessage" class="hidden text-center py-10"><div class="text-6xl mb-4">🎉</div><h3 class="text-2xl font-bold text-white mb-2">Thank You for Pre-Registering!</h3><p class="text-gray-400">We have received your **pre-registration**. We will contact you with the link to the official hackathon platform soon!</p><button onclick="closeRegisterModal()" class="mt-8 px-6 py-2 border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white transition">Close</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function skipWelcome() { const welcome = document.querySelector('.welcome-screen'); welcome.style.animation = 'fadeOutWelcome 0.4s ease-out forwards'; }
+        const fireContainer = document.getElementById('fireContainer'); for (let i = 0; i < 30; i++) { const flame = document.createElement('div'); flame.className = 'flame'; flame.style.left = Math.random() * 100 + '%'; flame.style.animationDelay = Math.random() * 3 + 's'; flame.style.animationDuration = (Math.random() * 2 + 2) + 's'; fireContainer.appendChild(flame); } for (let i = 0; i < 50; i++) { const ember = document.createElement('div'); ember.className = 'ember'; ember.style.left = Math.random() * 100 + '%'; ember.style.animationDelay = Math.random() * 4 + 's'; ember.style.animationDuration = (Math.random() * 3 + 3) + 's'; fireContainer.appendChild(ember); }
+        const particlesContainer = document.getElementById('particles'); for (let i = 0; i < 30; i++) { const particle = document.createElement('div'); particle.className = 'particle'; particle.style.left = Math.random() * 100 + '%'; particle.style.animationDelay = Math.random() * 10 + 's'; particle.style.animationDuration = (Math.random() * 10 + 10) + 's'; particlesContainer.appendChild(particle); }
+        const timelineItems = document.querySelectorAll('.timeline-item'); const timelineObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in-view'); } }); }, { threshold: 0.2 }) : null; if (timelineObserver) { timelineItems.forEach(item => timelineObserver.observe(item)); } else { timelineItems.forEach(item => item.classList.add('in-view')); }
+        function toggleChatbot() { const chatWindow = document.getElementById('chatbotWindow'); chatWindow.classList.toggle('active'); if (chatWindow.classList.contains('active')) document.getElementById('chatInput').focus(); }
+        function appendMessage(text, type) { const messagesContainer = document.getElementById('chatMessages'); const wrapper = document.createElement('div'); wrapper.className = type === 'user' ? 'mb-4 p-4 bg-white bg-opacity-10 rounded-2xl rounded-tr-none border border-white border-opacity-20 ml-12' : 'mb-4 p-4 bg-orange-500 bg-opacity-20 rounded-2xl rounded-tl-none border border-orange-400 border-opacity-30'; const paragraph = document.createElement('p'); paragraph.className = 'text-white text-sm'; paragraph.textContent = text; wrapper.appendChild(paragraph); messagesContainer.appendChild(wrapper); messagesContainer.scrollTop = messagesContainer.scrollHeight; }
+        function handleChatInput(event) { event.preventDefault(); const input = document.getElementById('chatInput'); const message = input.value.trim(); if (message) { appendMessage(message, 'user'); input.value = ''; setTimeout(() => { appendMessage('Thanks for your message! For detailed information about the Witch Hunt hackathon, please check our website sections or contact us at info@thewitch-hunt.com', 'bot'); }, 600); } }
+        
+        // --- IMPROVED MOBILE MENU TOGGLE LOGIC ---
+        function toggleMobileMenu(button) {
+            const menu = document.getElementById('mobileMenu');
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                // Open Menu
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                button.textContent = '✕'; // Change to X
+            } else {
+                // Close Menu
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                button.textContent = '☰'; // Change back to Hamburger
+            }
+        }
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.getElementById('mobileMenu');
+                const btn = document.getElementById('navToggleBtn');
+                if (!menu.classList.contains('hidden')) {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                    if (btn) btn.textContent = '☰';
+                }
+            });
+        });
+
+        function openRegisterModal() { document.getElementById('registerModal').style.display = 'flex'; }
+        function closeRegisterModal() { document.getElementById('registerModal').style.display = 'none'; }
+        function validateFileSize(input) { if (!input.files.length) return; const fileSize = input.files[0].size / 1024 / 1024; const errorMsg = document.getElementById('fileError'); const submitBtn = document.getElementById('submitBtn'); if (fileSize > 5) { errorMsg.classList.remove('hidden'); input.value = ""; submitBtn.disabled = true; submitBtn.classList.add('opacity-50', 'cursor-not-allowed'); } else { errorMsg.classList.add('hidden'); submitBtn.disabled = false; submitBtn.classList.remove('opacity-50', 'cursor-not-allowed'); } }
+        function handleRegistration(e) { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); if (btn.disabled) return; const originalText = btn.textContent; btn.textContent = 'Submitting...'; btn.disabled = true; const formData = new FormData(e.target); const data = {}; for (let [key, value] of formData.entries()) { if (key !== 'idProof') data[key] = value; } setTimeout(() => { document.getElementById('hackathonForm').classList.add('hidden'); document.getElementById('successMessage').classList.remove('hidden'); btn.textContent = originalText; btn.disabled = false; }, 1500); }
+        window.onclick = function(event) { const regModal = document.getElementById('registerModal'); if (event.target == regModal) { closeRegisterModal(); } const modals = document.querySelectorAll('.modal'); modals.forEach(modal => { if (event.target === modal) modal.style.display = 'none'; }); }
+        const countdownTimer = document.getElementById('countdownTimer'); if (countdownTimer) { const countdownTargets = { days: document.getElementById('countdownDays'), hours: document.getElementById('countdownHours'), minutes: document.getElementById('countdownMinutes'), seconds: document.getElementById('countdownSeconds'), }; const eventDate = new Date('2026-01-24T09:00:00+05:30').getTime(); let countdownInterval; const updateCountdown = () => { const now = Date.now(); let distance = eventDate - now; if (distance <= 0) { distance = 0; if (countdownInterval) clearInterval(countdownInterval); } const days = Math.floor(distance / (1000 * 60 * 60 * 24)); const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((distance % (1000 * 60)) / 1000); countdownTargets.days.textContent = String(days).padStart(2, '0'); countdownTargets.hours.textContent = String(hours).padStart(2, '0'); countdownTargets.minutes.textContent = String(minutes).padStart(2, '0'); countdownTargets.seconds.textContent = String(seconds).padStart(2, '0'); }; updateCountdown(); countdownInterval = setInterval(updateCountdown, 1000); }
+        const infoCards = document.querySelectorAll('.info-card'); const aboutObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.2 }) : null; if (aboutObserver) { infoCards.forEach(card => aboutObserver.observe(card)); } else { infoCards.forEach(card => card.classList.add('visible')); }
+        const closeButtons = document.querySelectorAll('.modal .close'); infoCards.forEach(card => { card.addEventListener('click', () => { const modalId = card.getAttribute('data-modal'); const modal = document.getElementById(modalId); if (modal) modal.style.display = 'flex'; }); }); closeButtons.forEach(btn => { btn.addEventListener('click', () => { const modal = btn.closest('.modal'); if (modal) modal.style.display = 'none'; }); });
+
+        // Back to top scroll visibility logic
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+    </script>
+</html>

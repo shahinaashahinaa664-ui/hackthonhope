@@ -433,18 +433,25 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         
         /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 2.5rem; line-height: 1.2; }
+        }
+        
         @media (max-width: 768px) {
             .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-            .countdown-value { font-size: 1.75rem; }
-            .countdown-label { font-size: 0.65rem; }
-            .hero-title { font-size: 2.5rem; }
-            h2 { font-size: 1.75rem !important; }
+            .countdown-value { font-size: 1.5rem; }
+            .countdown-label { font-size: 0.6rem; }
+            .hero-title { font-size: 2rem; line-height: 1.1; }
+            h2 { font-size: 1.25rem !important; }
         }
         
         @media (max-width: 640px) {
             .countdown-item { padding: 1rem 0.75rem; }
-            .countdown-value { font-size: 1.5rem; }
-            .countdown-label { font-size: 0.6rem; letter-spacing: 0.15em; }
+            .countdown-value { font-size: 1.25rem; }
+            .countdown-label { font-size: 0.55rem; letter-spacing: 0.1em; }
+            .hero-title { font-size: 1.75rem; line-height: 1; }
+            h2 { font-size: 1.1rem !important; }
+            .grid.lg\\:grid-cols-2 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -523,12 +530,12 @@
         </nav>
         </header>
 
-        <main id="hero" class="min-h-screen flex items-center justify-center pt-24 px-6 relative z-10" role="main">
+        <main id="hero" class="min-h-screen flex items-center justify-center pt-24 px-4 md:px-6 relative z-10" role="main">
             <div class="container mx-auto max-w-7xl">
-                <div class="grid lg:grid-cols-2 gap-12 items-start mb-16">
+                <div class="grid lg:grid-cols-2 gap-8 items-start mb-16">
                     <!-- Left Content -->
                     <div class="hero-content pt-12">
-                        <h1 class="hero-title text-7xl md:text-8xl lg:text-9xl gradient-text mb-6 leading-none">WITCH HUNT</h1>
+                        <h1 class="hero-title text-5xl sm:text-6xl md:text-7xl gradient-text mb-4 leading-tight break-words">WITCH HUNT</h1>
                         <h2 class="text-3xl md:text-4xl mb-6 font-bold text-white">Women in Tech Challenge</h2>
                         <p class="text-base md:text-lg text-gray-300 mb-8 leading-relaxed">Reclaiming Innovation, Rewriting Narratives</p>
                         <p class="text-base md:text-lg text-gray-400 mb-12 leading-relaxed">India's largest women-led hackathon leveraging AI to solve critical social problems. Join <span class="text-orange-400 font-bold">5,000+ women</span> creating impact at scale</p>
@@ -567,7 +574,7 @@
                 </div>
 
                 <!-- Event Kickoff Box -->
-                <div class="grid lg:grid-cols-2 gap-12 items-end">
+                <div class="grid lg:grid-cols-2 gap-8 items-end">
                     <div class="hero-content">
                         <div class="border-2 border-orange-400 border-opacity-40 rounded-3xl p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black backdrop-blur-sm">
                             <p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-4 font-semibold">BE PART OF INDIA'S LARGEST</p>

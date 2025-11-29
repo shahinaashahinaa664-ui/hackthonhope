@@ -352,6 +352,496 @@
         .form-input { width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: white; transition: all 0.3s; }
         .form-input:focus { outline: none; border-color: #ff6500; box-shadow: 0 0 0 2px rgba(255, 101, 0, 0.2); }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+        /* --- SPEAKERS SECTION STYLES --- */
+        .speakers-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speakers-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 101, 0, 0.18) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255, 165, 0, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 20%, rgba(255, 140, 0, 0.08) 0%, transparent 40%);
+            animation: bgRotate 25s linear infinite;
+        }
+        
+        .speakers-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 165, 0, 0.02) 2px,
+                    rgba(255, 165, 0, 0.02) 4px
+                );
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        @keyframes bgRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 32px;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-wrapper {
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-wrapper {
+                mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent);
+                -webkit-mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent);
+            }
+        }
+
+        .speaker-card-scroll {
+            flex: 0 0 320px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), 
+                        0 0 0 1px rgba(255, 165, 0, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .speaker-card-scroll::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 101, 0, 0) 0%, rgba(255, 165, 0, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 1;
+            border-radius: 24px;
+        }
+
+        .speaker-card-scroll:hover::before {
+            opacity: 1;
+        }
+
+        .speaker-card-scroll:hover {
+            transform: translateY(-24px) scale(1.05) rotateY(3deg);
+            box-shadow: 0 40px 100px rgba(255, 101, 0, 0.6), 
+                        0 0 60px rgba(255, 165, 0, 0.4),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                        0 0 0 2px rgba(255, 165, 0, 0.2);
+            border-color: rgba(255, 165, 0, 0.5);
+        }
+
+        .speaker-img-container {
+            width: 100%;
+            height: 360px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e1e5e9 100%);
+            border-bottom: 3px solid rgba(255, 165, 0, 0.1);
+        }
+        
+        .speaker-img-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255, 165, 0, 0.05) 0%, transparent 50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .speaker-card-scroll:hover .speaker-img-container::before {
+            opacity: 1;
+        }
+
+        .speaker-img-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+
+        .speaker-card-scroll:hover .speaker-img-container::after {
+            opacity: 1;
+        }
+
+        .speaker-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: grayscale(25%) contrast(1.15) brightness(0.98);
+            transform-origin: center center;
+        }
+
+        .speaker-card-scroll:hover .speaker-img {
+            transform: scale(1.18) rotate(1.5deg);
+            filter: grayscale(0%) contrast(1.25) brightness(1.08) saturate(1.1);
+        }
+
+        .speaker-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, rgba(255, 101, 0, 0.98), rgba(255, 140, 0, 0.98));
+            color: white;
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            z-index: 3;
+            box-shadow: 0 6px 20px rgba(255, 101, 0, 0.6),
+                        0 0 0 1px rgba(255, 255, 255, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: badgePulse 3s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .speaker-card-scroll:hover .speaker-badge {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 101, 0, 0.8),
+                        0 0 0 1px rgba(255, 255, 255, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { 
+                box-shadow: 0 6px 20px rgba(255, 101, 0, 0.6),
+                            0 0 0 1px rgba(255, 255, 255, 0.2),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                box-shadow: 0 8px 30px rgba(255, 101, 0, 0.9),
+                            0 0 0 1px rgba(255, 255, 255, 0.3),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .speaker-info-scroll {
+            padding: 32px 28px;
+            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .speaker-name-scroll {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            transition: color 0.3s ease;
+        }
+        
+        .speaker-card-scroll:hover .speaker-name-scroll {
+            color: #ff6500;
+        }
+
+        .speaker-role-scroll {
+            font-size: 0.95rem;
+            color: #ff6500;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .speaker-company-scroll {
+            font-size: 0.875rem;
+            color: #666666;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .speaker-card-scroll:hover .social-links {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 101, 0, 0.12), rgba(255, 140, 0, 0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6500;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 15px;
+            border: 1px solid rgba(255, 101, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, #ff6500, #ff8c00);
+            color: white;
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 101, 0, 0.5);
+            border-color: rgba(255, 101, 0, 0.5);
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(255, 101, 0, 0.95), rgba(255, 140, 0, 0.95));
+            border: 2px solid rgba(255, 165, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 8px 30px rgba(255, 101, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .scroll-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 165, 0, 0.3);
+            animation: ripple 2s infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .scroll-btn:hover {
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 12px 40px rgba(255, 101, 0, 0.6);
+            background: linear-gradient(135deg, rgba(255, 101, 0, 1), rgba(255, 140, 0, 1));
+        }
+
+        .scroll-btn:active {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .scroll-btn-left {
+            left: 40px;
+        }
+
+        .scroll-btn-right {
+            right: 40px;
+        }
+
+        .scroll-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .scroll-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 165, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .scroll-dot::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 165, 0, 0.4);
+            transform: scale(0);
+            transition: transform 0.4s ease;
+        }
+
+        .scroll-dot:hover::after {
+            transform: scale(1.8);
+        }
+
+        .scroll-dot.active {
+            background: linear-gradient(135deg, #ff6500, #ff8c00);
+            width: 32px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 101, 0, 0.6);
+        }
+
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 165, 0, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(var(--tx), -100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .title-glow {
+            background: linear-gradient(135deg, #ffffff 0%, #ff8c00 50%, #ffffff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            text-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @media (max-width: 768px) {
+            .scroll-btn {
+                display: none;
+            }
+
+            .speaker-card-scroll {
+                flex: 0 0 260px;
+            }
+
+            .speaker-img-container {
+                height: 280px;
+            }
+
+            .scroll-btn-left,
+            .scroll-btn-right {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-delay-1 { animation-delay: 0.2s; }
+        .fade-delay-2 { animation-delay: 0.4s; }
+        
+        .speaker-card-scroll:nth-child(1) { animation-delay: 0.1s; }
+        .speaker-card-scroll:nth-child(2) { animation-delay: 0.15s; }
+        .speaker-card-scroll:nth-child(3) { animation-delay: 0.2s; }
+        .speaker-card-scroll:nth-child(4) { animation-delay: 0.25s; }
+        .speaker-card-scroll:nth-child(5) { animation-delay: 0.3s; }
+        .speaker-card-scroll:nth-child(6) { animation-delay: 0.35s; }
+        .speaker-card-scroll:nth-child(7) { animation-delay: 0.4s; }
+        .speaker-card-scroll:nth-child(8) { animation-delay: 0.45s; }
+        .speaker-card-scroll:nth-child(9) { animation-delay: 0.5s; }
+        .speaker-card-scroll:nth-child(10) { animation-delay: 0.55s; }
     </style>
 </head>
 <body class="text-white">
@@ -396,6 +886,7 @@
                     <a href="#about" class="hover:text-orange-400 transition-colors">About</a>
                     <a href="#themes" class="hover:text-orange-400 transition-colors">Themes</a>
                     <a href="#program" class="hover:text-orange-400 transition-colors">Tracks</a>
+                    <a href="#team" class="hover:text-orange-400 transition-colors">Team</a>
                     <a href="#schedule" class="hover:text-orange-400 transition-colors">Schedule</a>
                     <a href="#prizes" class="hover:text-orange-400 transition-colors">Prizes</a>
                     <a href="#contact" class="hover:text-orange-400 transition-colors">Contact</a>
@@ -414,6 +905,7 @@
                 <a href="#about" class="block py-2 hover:text-orange-400 mobile-link">About</a>
                 <a href="#themes" class="block py-2 hover:text-orange-400 mobile-link">Themes</a>
                 <a href="#program" class="block py-2 hover:text-orange-400 mobile-link">Tracks</a>
+                <a href="#team" class="block py-2 hover:text-orange-400 mobile-link">Team</a>
                 <a href="#schedule" class="block py-2 hover:text-orange-400 mobile-link">Schedule</a>
                 <a href="#prizes" class="block py-2 hover:text-orange-400 mobile-link">Prizes</a>
                 <a href="#contact" class="block py-2 hover:text-orange-400 mobile-link">Contact</a>
@@ -567,6 +1059,264 @@
         </div>
     </section>
 
+    <!-- SPEAKERS SECTION -->
+    <section id="team" class="speakers-bg py-32 px-6 relative z-10">
+        <div class="particle-container" id="speakersParticleContainer"></div>
+        
+        <div class="container mx-auto max-w-7xl relative z-10">
+            
+            <!-- Section Header -->
+            <div class="text-center mb-20 fade-in-up">
+                <div class="inline-block px-8 py-3 rounded-full bg-orange-500/10 border border-orange-500/30 mb-8 backdrop-blur-sm">
+                    <span class="text-orange-400 text-sm uppercase tracking-[0.3em] font-bold">Meet Our Team</span>
+                </div>
+                <h2 class="hero-title text-5xl md:text-6xl lg:text-7xl mb-8 title-glow">
+                    Meet the minds behind Witch Hunt
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    The team that turns <span class="text-orange-400 font-bold">ideas into magic</span>
+                </p>
+            </div>
+
+            <!-- Horizontal Scroll Section -->
+            <div class="scroll-wrapper relative fade-in-up fade-delay-1">
+                <!-- Left Scroll Button -->
+                <button class="scroll-btn scroll-btn-left" onclick="scrollSpeakers('left')" aria-label="Scroll left">
+                    ‹
+                </button>
+
+                <!-- Speakers Container -->
+                <div class="scroll-container px-6" id="speakersScroll">
+                    
+                    <!-- Speaker Card 1 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Chair</span>
+                               <img src="speaker1.jpg" 
+                                 alt="Chithra" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=1'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Chithra Gurjar</h3>
+                            <p class="speaker-role-scroll">Chair</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 2 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Co-Chair</span>
+                               <img src="speaker2.jpg" 
+                                 alt="Neeraja" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=2'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Neeraja Ganesh</h3>
+                            <p class="speaker-role-scroll">Co-Chair</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 3 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Co-Chair</span>
+                               <img src="speaker3.jpg" 
+                                 alt="Varsha" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=3'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Varsha Verma</h3>
+                            <p class="speaker-role-scroll">Co-Chair</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 4 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Chief</span>
+                               <img src="speaker4.jpg" 
+                                 alt="Noella" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=4'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Noella D'Souza Coutinho</h3>
+                            <p class="speaker-role-scroll">Chief of Staff</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 5 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Finance</span>
+                               <img src="speaker5.jpg" 
+                                 alt="Sanjay Kumar" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=5'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Sanjay Kumar</h3>
+                            <p class="speaker-role-scroll">Finance Controller</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 6 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">PMO</span>
+                               <img src="speaker6.jpg" 
+                                 alt="Shanmugapriya" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=6'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Shanmugapriya Gnanasekaran</h3>
+                            <p class="speaker-role-scroll">Head of PMO</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 7 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Lead</span>
+                               <img src="speaker7.jpg" 
+                                 alt="Dr. Muthukumar" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=7'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Dr. Muthukumaraswamy B</h3>
+                            <p class="speaker-role-scroll">Lead, Tech Track</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 8 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Marketing</span>
+                               <img src="speaker8.jpg" 
+                                 alt="Bhuvana" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=8'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Bhuvana Subramanyan</h3>
+                            <p class="speaker-role-scroll">Head, Marketing & Outreach</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 9 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Outreach</span>
+                               <img src="speaker9.jpg" 
+                                 alt="Riththika" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=9'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Riththika</h3>
+                            <p class="speaker-role-scroll">Young women community outreach</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Card 10 -->
+                    <div class="speaker-card-scroll fade-in-up">
+                        <div class="speaker-img-container">
+                            <span class="speaker-badge">Member</span>
+                               <img src="speaker10.jpg" 
+                                 alt="Yasmeen M S" 
+                                 class="speaker-img"
+                                 onerror="this.src='https://i.pravatar.cc/400?img=10'">
+                        </div>
+                        <div class="speaker-info-scroll">
+                            <h3 class="speaker-name-scroll">Yasmeen M S</h3>
+                            <p class="speaker-role-scroll">Member, Tech Track</p>
+                            <p class="speaker-company-scroll">&nbsp;</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">𝕏</a>
+                                <a href="#" class="social-link">in</a>
+                                <a href="#" class="social-link">✉</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Scroll Button -->
+                <button class="scroll-btn scroll-btn-right" onclick="scrollSpeakers('right')" aria-label="Scroll right">
+                    ›
+                </button>
+            </div>
+
+            <!-- Enhanced Scroll Indicators -->
+            <div class="scroll-indicators fade-in-up fade-delay-2">
+                <div class="scroll-dot active"></div>
+                <div class="scroll-dot"></div>
+                <div class="scroll-dot"></div>
+                <div class="scroll-dot"></div>
+            </div>
+
+        </div>
+    </section>
+
     <section id="schedule" class="py-24 px-6 bg-gradient-to-b from-gray-900 to-black relative z-10 overflow-hidden">
         <div class="container mx-auto">
             <h2 class="hero-title text-5xl text-orange-400 mb-12 text-center">Event Roadmap</h2>
@@ -710,6 +1460,101 @@
     </div>
 
     <script>
+        // Create floating particles for speakers section
+        const speakersParticleContainer = document.getElementById('speakersParticleContainer');
+        if (speakersParticleContainer) {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                speakersParticleContainer.appendChild(particle);
+            }
+        }
+
+        // Smooth Scroll Function for Speakers
+        function scrollSpeakers(direction) {
+            const container = document.getElementById('speakersScroll');
+            const scrollAmount = 360;
+            
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        // Enhanced scroll indicators for speakers
+        const speakersScrollContainer = document.getElementById('speakersScroll');
+        const speakerScrollDots = document.querySelectorAll('#team .scroll-dot');
+        
+        if (speakersScrollContainer && speakerScrollDots.length > 0) {
+            let isScrolling;
+            speakersScrollContainer.addEventListener('scroll', () => {
+                window.clearTimeout(isScrolling);
+                
+                isScrolling = setTimeout(() => {
+                    const maxScroll = speakersScrollContainer.scrollWidth - speakersScrollContainer.clientWidth;
+                    const currentScroll = speakersScrollContainer.scrollLeft;
+                    const scrollPercentage = (currentScroll / maxScroll) * 100;
+                    
+                    speakerScrollDots.forEach((dot, index) => {
+                        dot.classList.remove('active');
+                        const sectionSize = 100 / (speakerScrollDots.length - 1);
+                        
+                        if (scrollPercentage >= index * sectionSize - 10 && scrollPercentage < (index + 1) * sectionSize - 10) {
+                            dot.classList.add('active');
+                        }
+                    });
+                    
+                    if (scrollPercentage >= 90) {
+                        speakerScrollDots[speakerScrollDots.length - 1].classList.add('active');
+                    }
+                }, 50);
+            });
+
+            // Click dots to scroll
+            speakerScrollDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    const scrollWidth = speakersScrollContainer.scrollWidth - speakersScrollContainer.clientWidth;
+                    const scrollTo = (scrollWidth / (speakerScrollDots.length - 1)) * index;
+                    speakersScrollContainer.scrollTo({ left: scrollTo, behavior: 'smooth' });
+                });
+            });
+        }
+
+        // Enhanced touch swipe for speakers
+        if (speakersScrollContainer) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let touchStartTime = 0;
+
+            speakersScrollContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartTime = Date.now();
+            });
+
+            speakersScrollContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const touchDuration = Date.now() - touchStartTime;
+                handleSpeakersSwipe(touchDuration);
+            });
+
+            function handleSpeakersSwipe(duration) {
+                const swipeDistance = Math.abs(touchEndX - touchStartX);
+                const isQuickSwipe = duration < 300;
+                
+                if (swipeDistance > 50 || isQuickSwipe) {
+                    if (touchEndX < touchStartX) {
+                        scrollSpeakers('right');
+                    } else if (touchEndX > touchStartX) {
+                        scrollSpeakers('left');
+                    }
+                }
+            }
+        }
+
         function skipWelcome() { const welcome = document.querySelector('.welcome-screen'); welcome.style.animation = 'fadeOutWelcome 0.4s ease-out forwards'; }
         const fireContainer = document.getElementById('fireContainer'); for (let i = 0; i < 30; i++) { const flame = document.createElement('div'); flame.className = 'flame'; flame.style.left = Math.random() * 100 + '%'; flame.style.animationDelay = Math.random() * 3 + 's'; flame.style.animationDuration = (Math.random() * 2 + 2) + 's'; fireContainer.appendChild(flame); } for (let i = 0; i < 50; i++) { const ember = document.createElement('div'); ember.className = 'ember'; ember.style.left = Math.random() * 100 + '%'; ember.style.animationDelay = Math.random() * 4 + 's'; ember.style.animationDuration = (Math.random() * 3 + 3) + 's'; fireContainer.appendChild(ember); }
         const particlesContainer = document.getElementById('particles'); for (let i = 0; i < 30; i++) { const particle = document.createElement('div'); particle.className = 'particle'; particle.style.left = Math.random() * 100 + '%'; particle.style.animationDelay = Math.random() * 10 + 's'; particle.style.animationDuration = (Math.random() * 10 + 10) + 's'; particlesContainer.appendChild(particle); }

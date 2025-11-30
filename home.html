@@ -20,27 +20,16 @@
         }
 
         /* --- CUSTOM SCROLLBAR FOR ROADMAP --- */
-        .cyber-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-        .cyber-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05); 
-            border-radius: 4px;
-        }
-        .cyber-scrollbar::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #ff6500, #ff8c00); 
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(255, 101, 0, 0.8);
-        }
-        .cyber-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #ff4500; 
-        }
+        .cyber-scrollbar::-webkit-scrollbar { width: 8px; }
+        .cyber-scrollbar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 4px; }
+        .cyber-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ff6500, #ff8c00); border-radius: 4px; box-shadow: 0 0 10px rgba(255, 101, 0, 0.8); }
+        .cyber-scrollbar::-webkit-scrollbar-thumb:hover { background: #ff4500; }
 
         /* --- TOP BANNER & STICKY NAV --- */
         .top-banner {
             background: linear-gradient(to bottom, #000000, #111111);
             border-bottom: 1px solid rgba(255, 165, 0, 0.1);
-            padding: 20px 0;
+            padding: 10px 0; /* Reduced padding */
             position: relative;
             z-index: 50;
         }
@@ -58,34 +47,13 @@
         
         /* --- BACK TO TOP BUTTON --- */
         .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 101, 0, 0.2);
-            border: 1px solid #ff6500;
-            border-radius: 50%;
-            color: #ff6500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
+            background: rgba(255, 101, 0, 0.2); border: 1px solid #ff6500; border-radius: 50%;
+            color: #ff6500; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; cursor: pointer; z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        .back-to-top:hover {
-            background: #ff6500;
-            color: white;
-            transform: translateY(-5px);
-        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: #ff6500; color: white; transform: translateY(-5px); }
 
         /* --- ANIMATIONS & STYLES --- */
         .welcome-screen {
@@ -141,14 +109,7 @@
             animation: bgPulse 8s ease-in-out infinite;
         }
         @keyframes bgPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-        .float-animation { animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
-        .gradient-text {
-            background: linear-gradient(135deg, #ff6500 0%, #ffa500 50%, #ff6500 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; background-size: 200% auto; animation: gradientShift 3s ease infinite;
-        }
-        @keyframes gradientShift { 0%, 100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+        
         .stat-card {
             backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 165, 0, 0.3); transition: all 0.4s ease;
@@ -157,44 +118,21 @@
             transform: translateY(-10px) scale(1.05); box-shadow: 0 25px 50px rgba(255, 101, 0, 0.4);
             border-color: rgba(255, 165, 0, 0.8); background: rgba(255, 165, 0, 0.1);
         }
-        .pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.5); }
-            50% { box-shadow: 0 0 50px rgba(255, 165, 0, 0.9); }
-        }
-        .scroll-indicator { animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+        
         .hero-content { animation: slideInLeft 1.2s ease-out 4.5s backwards; }
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
         .hero-visual { animation: slideInRight 1.2s ease-out 4.7s backwards; }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-        .particle {
-            position: absolute; width: 4px; height: 4px; background: rgba(255, 165, 0, 0.6);
-            border-radius: 50%; animation: particleFloat 10s infinite;
-        }
-        @keyframes particleFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
-            10% { opacity: 1; } 90% { opacity: 1; }
-            100% { transform: translate(100px, -1000px) scale(0); opacity: 0; }
-        }
-
+        
         /* --- TECH IMAGE FRAME --- */
         .tech-frame {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 101, 0, 0.2);
-            border: 1px solid rgba(255, 165, 0, 0.3);
+            position: relative; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 101, 0, 0.2); border: 1px solid rgba(255, 165, 0, 0.3);
             animation: floatTech 6s ease-in-out infinite;
         }
         @keyframes floatTech {
             0%, 100% { transform: translateY(0); box-shadow: 0 0 30px rgba(255, 101, 0, 0.2); }
             50% { transform: translateY(-20px); box-shadow: 0 20px 50px rgba(255, 101, 0, 0.4); }
-        }
-        .tech-frame::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(255, 165, 0, 0.1) 50%);
-            background-size: 100% 4px; z-index: 2; pointer-events: none;
         }
         .tech-frame::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -205,13 +143,8 @@
 
         /* --- ADVANCED COUNTDOWN STYLES --- */
         .countdown-advanced {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 165, 0, 0.5);
-            border-radius: 20px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255, 165, 0, 0.5);
+            border-radius: 20px; padding: 2rem; position: relative; overflow: hidden;
             box-shadow: 0 0 20px rgba(255, 165, 0, 0.1), inset 0 0 20px rgba(255, 165, 0, 0.05);
             animation: neonPulse 4s infinite alternate;
         }
@@ -219,64 +152,27 @@
             0% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.1), inset 0 0 20px rgba(255, 165, 0, 0.05); border-color: rgba(255, 165, 0, 0.3); }
             100% { box-shadow: 0 0 40px rgba(255, 165, 0, 0.3), inset 0 0 40px rgba(255, 165, 0, 0.1); border-color: rgba(255, 165, 0, 0.8); }
         }
-        .countdown-advanced::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,165,0,0.1) 0%, transparent 60%);
-            animation: rotateBg 10s linear infinite; z-index: 0;
-        }
-        @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .cd-content { position: relative; z-index: 1; }
         .cd-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease;
         }
         .cd-box:hover { transform: translateY(-5px); background: rgba(255, 165, 0, 0.1); border-color: rgba(255, 165, 0, 0.4); }
         .cd-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-family: 'Orbitron', monospace; font-size: 2.5rem; font-weight: 700;
             background: linear-gradient(180deg, #fff 0%, #ff8c00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(255, 140, 0, 0.5));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         
         /* --- ABOUT HIGHLIGHT (DARK MODE) --- */
         .about-highlight {
-            border: 1px solid rgba(255, 165, 0, 0.3);
-            border-radius: 12px;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            max-width: 900px;
-            margin: 2rem auto;
-            color: #d1d5db;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 165, 0, 0.3); border-radius: 12px; padding: 30px;
+            background-color: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
+            max-width: 900px; margin: 2rem auto; color: #d1d5db; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
-        .about-highlight h3 {
-            color: #ff9f43;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px rgba(255, 159, 67, 0.3);
-        }
-        .about-highlight h4 {
-            color: #2ecc71;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
-        }
-        .about-highlight strong { color: #fff; }
+        .about-highlight h3 { color: #ff9f43; margin-bottom: 1.5rem; text-align: center; font-size: 1.5rem; }
         .about-know-section { padding: 40px; background-color: #000; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); margin-top: 3rem; }
         .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .info-card { flex: 1; min-width: 280px; max-width: 320px; background: #111; color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); padding: 20px; opacity: 0; transform: scale(0.9); transition: all 0.6s ease, box-shadow 0.3s ease, transform 0.3s ease; cursor: pointer; }
-        .info-card h3 { color: #f39c12; text-align: center; margin-bottom: 12px; }
-        .info-card.visible { opacity: 1; transform: scale(1); }
+        .info-card { flex: 1; min-width: 280px; max-width: 320px; background: #111; color: #ecf0f1; border-radius: 12px; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); padding: 20px; cursor: pointer; transition: all 0.3s ease; }
         .info-card:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 8px 20px rgba(241, 196, 15, 0.6); }
 
         /* --- THEMES & SCHEDULE --- */
@@ -284,18 +180,10 @@
         .theme-card:hover { transform: translateY(-5px); }
         .theme-card .watermark { position: absolute; top: 10px; right: 10px; font-size: 80px; opacity: 0.1; transform: rotate(10deg); pointer-events: none; }
         .theme-card .icon-box { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; position: relative; z-index: 10; }
-        .theme-edu { box-shadow: inset 0 0 20px rgba(217, 119, 6, 0.1); border-top: 4px solid #d97706; }
-        .theme-edu:hover { box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); }
-        .theme-edu .icon-box { background: rgba(217, 119, 6, 0.2); color: #d97706; box-shadow: 0 0 15px rgba(217, 119, 6, 0.4); }
-        .theme-climate { box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.1); border-top: 4px solid #22c55e; }
-        .theme-climate:hover { box-shadow: 0 0 25px rgba(34, 197, 94, 0.4); }
-        .theme-climate .icon-box { background: rgba(34, 197, 94, 0.2); color: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
-        .theme-health { box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.1); border-top: 4px solid #ef4444; }
-        .theme-health:hover { box-shadow: 0 0 25px rgba(239, 68, 68, 0.4); }
-        .theme-health .icon-box { background: rgba(239, 68, 68, 0.2); color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-        .theme-cities { box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1); border-top: 4px solid #3b82f6; }
-        .theme-cities:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
-        .theme-cities .icon-box { background: rgba(59, 130, 246, 0.2); color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+        .theme-edu { border-top: 4px solid #d97706; } .theme-edu:hover { box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); }
+        .theme-climate { border-top: 4px solid #22c55e; } .theme-climate:hover { box-shadow: 0 0 25px rgba(34, 197, 94, 0.4); }
+        .theme-health { border-top: 4px solid #ef4444; } .theme-health:hover { box-shadow: 0 0 25px rgba(239, 68, 68, 0.4); }
+        .theme-cities { border-top: 4px solid #3b82f6; } .theme-cities:hover { box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
         .theme-title { font-family: 'Orbitron', monospace; font-weight: 700; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
         .theme-desc { color: #9ca3af; font-size: 0.9rem; line-height: 1.5; }
 
@@ -305,8 +193,7 @@
         .timeline-item.in-view { opacity: 1; transform: translateY(0); }
         .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: #000; border: 4px solid #ff6500; top: 50%; border-radius: 50%; z-index: 1; box-shadow: 0 0 10px #ff6500; transition: all 0.3s ease; }
         .timeline-item:hover::after { background-color: #ff6500; transform: scale(1.2); }
-        .left { left: 0; }
-        .right { left: 50%; }
+        .left { left: 0; } .right { left: 50%; }
         .left::before { content: " "; height: 0; position: absolute; top: 50%; width: 0; z-index: 1; right: 30px; border: medium solid white; border-width: 10px 0 10px 10px; border-color: transparent transparent transparent rgba(255, 165, 0, 0.3); transform: translateY(-50%); }
         .right::before { content: " "; height: 0; position: absolute; top: 50%; width: 0; z-index: 1; left: 30px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent rgba(255, 165, 0, 0.3) transparent transparent; transform: translateY(-50%); }
         .right::after { left: -10px; }
@@ -354,484 +241,112 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
         /* --- SPEAKERS SECTION STYLES --- */
-        .speakers-bg {
-            position: relative;
-            overflow: hidden;
-        }
-
+        .speakers-bg { position: relative; overflow: hidden; }
         .speakers-bg::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 101, 0, 0.18) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(255, 165, 0, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 20%, rgba(255, 140, 0, 0.08) 0%, transparent 40%);
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 101, 0, 0.18) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(255, 165, 0, 0.12) 0%, transparent 50%), radial-gradient(circle at 50% 20%, rgba(255, 140, 0, 0.08) 0%, transparent 40%);
             animation: bgRotate 25s linear infinite;
         }
-        
         .speakers-bg::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255, 165, 0, 0.02) 2px,
-                    rgba(255, 165, 0, 0.02) 4px
-                );
-            pointer-events: none;
-            opacity: 0.5;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 165, 0, 0.02) 2px, rgba(255, 165, 0, 0.02) 4px);
+            pointer-events: none; opacity: 0.5;
         }
+        @keyframes bgRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        @keyframes bgRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .scroll-container {
-            display: flex;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            gap: 32px;
-            padding: 60px 0;
-            position: relative;
-        }
-
-        .scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .scroll-wrapper {
-            position: relative;
-            mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent);
-        }
-
-        @media (max-width: 768px) {
-            .scroll-wrapper {
-                mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent);
-                -webkit-mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent);
-            }
-        }
+        .scroll-container { display: flex; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 32px; padding: 60px 0; position: relative; }
+        .scroll-container::-webkit-scrollbar { display: none; }
+        .scroll-wrapper { position: relative; mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 100px, black calc(100% - 100px), transparent); }
+        @media (max-width: 768px) { .scroll-wrapper { mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent); } }
 
         .speaker-card-scroll {
-            flex: 0 0 320px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), 
-                        0 0 0 1px rgba(255, 165, 0, 0.15),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            flex: 0 0 320px; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 28px; overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 165, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; position: relative; border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
         }
-
         .speaker-card-scroll::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(135deg, rgba(255, 101, 0, 0) 0%, rgba(255, 165, 0, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            z-index: 1;
-            border-radius: 24px;
+            opacity: 0; transition: opacity 0.6s ease; z-index: 1; border-radius: 24px;
         }
-
-        .speaker-card-scroll:hover::before {
-            opacity: 1;
-        }
-
+        .speaker-card-scroll:hover::before { opacity: 1; }
         .speaker-card-scroll:hover {
             transform: translateY(-24px) scale(1.05) rotateY(3deg);
-            box-shadow: 0 40px 100px rgba(255, 101, 0, 0.6), 
-                        0 0 60px rgba(255, 165, 0, 0.4),
-                        inset 0 1px 1px rgba(255, 255, 255, 0.6),
-                        0 0 0 2px rgba(255, 165, 0, 0.2);
+            box-shadow: 0 40px 100px rgba(255, 101, 0, 0.6), 0 0 60px rgba(255, 165, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 0 0 2px rgba(255, 165, 0, 0.2);
             border-color: rgba(255, 165, 0, 0.5);
         }
 
-        .speaker-img-container {
-            width: 100%;
-            height: 360px;
-            overflow: hidden;
-            position: relative;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e1e5e9 100%);
-            border-bottom: 3px solid rgba(255, 165, 0, 0.1);
-        }
-        
-        .speaker-img-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(255, 165, 0, 0.05) 0%, transparent 50%);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .speaker-card-scroll:hover .speaker-img-container::before {
-            opacity: 1;
-        }
-
-        .speaker-img-container::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 2;
-        }
-
-        .speaker-card-scroll:hover .speaker-img-container::after {
-            opacity: 1;
-        }
-
-        .speaker-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: grayscale(25%) contrast(1.15) brightness(0.98);
-            transform-origin: center center;
-        }
-
-        .speaker-card-scroll:hover .speaker-img {
-            transform: scale(1.18) rotate(1.5deg);
-            filter: grayscale(0%) contrast(1.25) brightness(1.08) saturate(1.1);
-        }
+        .speaker-img-container { width: 100%; height: 360px; overflow: hidden; position: relative; background: linear-gradient(135deg, #f0f2f5 0%, #e1e5e9 100%); border-bottom: 3px solid rgba(255, 165, 0, 0.1); }
+        .speaker-img-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(255, 165, 0, 0.05) 0%, transparent 50%); z-index: 1; opacity: 0; transition: opacity 0.5s ease; }
+        .speaker-card-scroll:hover .speaker-img-container::before { opacity: 1; }
+        .speaker-img-container::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent); opacity: 0; transition: opacity 0.5s ease; z-index: 2; }
+        .speaker-card-scroll:hover .speaker-img-container::after { opacity: 1; }
+        .speaker-img { width: 100%; height: 100%; object-fit: cover; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); filter: grayscale(25%) contrast(1.15) brightness(0.98); transform-origin: center center; }
+        .speaker-card-scroll:hover .speaker-img { transform: scale(1.18) rotate(1.5deg); filter: grayscale(0%) contrast(1.25) brightness(1.08) saturate(1.1); }
 
         .speaker-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, rgba(255, 101, 0, 0.98), rgba(255, 140, 0, 0.98));
-            color: white;
-            padding: 8px 18px;
-            border-radius: 24px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            z-index: 3;
-            box-shadow: 0 6px 20px rgba(255, 101, 0, 0.6),
-                        0 0 0 1px rgba(255, 255, 255, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            animation: badgePulse 3s ease-in-out infinite;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, rgba(255, 101, 0, 0.98), rgba(255, 140, 0, 0.98));
+            color: white; padding: 8px 18px; border-radius: 24px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; z-index: 3;
+            box-shadow: 0 6px 20px rgba(255, 101, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: badgePulse 3s ease-in-out infinite; backdrop-filter: blur(10px); transition: all 0.3s ease;
         }
-        
-        .speaker-card-scroll:hover .speaker-badge {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 101, 0, 0.8),
-                        0 0 0 1px rgba(255, 255, 255, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-        }
-
+        .speaker-card-scroll:hover .speaker-badge { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 101, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
         @keyframes badgePulse {
-            0%, 100% { 
-                box-shadow: 0 6px 20px rgba(255, 101, 0, 0.6),
-                            0 0 0 1px rgba(255, 255, 255, 0.2),
-                            inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            }
-            50% { 
-                box-shadow: 0 8px 30px rgba(255, 101, 0, 0.9),
-                            0 0 0 1px rgba(255, 255, 255, 0.3),
-                            inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            }
+            0%, 100% { box-shadow: 0 6px 20px rgba(255, 101, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+            50% { box-shadow: 0 8px 30px rgba(255, 101, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
         }
 
-        .speaker-info-scroll {
-            padding: 32px 28px;
-            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .speaker-name-scroll {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: #1a1a1a;
-            margin-bottom: 10px;
-            line-height: 1.3;
-            letter-spacing: -0.02em;
-            transition: color 0.3s ease;
-        }
+        .speaker-info-scroll { padding: 32px 28px; background: linear-gradient(to bottom, #ffffff, #f8f9fa); text-align: center; position: relative; z-index: 2; border-top: 1px solid rgba(0, 0, 0, 0.05); }
+        .speaker-name-scroll { font-size: 1.35rem; font-weight: 800; color: #1a1a1a; margin-bottom: 10px; line-height: 1.3; letter-spacing: -0.02em; transition: color 0.3s ease; }
+        .speaker-card-scroll:hover .speaker-name-scroll { color: #ff6500; }
+        .speaker-role-scroll { font-size: 0.95rem; color: #ff6500; font-weight: 700; line-height: 1.5; margin-bottom: 6px; letter-spacing: 0.3px; }
+        .speaker-company-scroll { font-size: 0.875rem; color: #666666; font-weight: 500; line-height: 1.4; }
         
-        .speaker-card-scroll:hover .speaker-name-scroll {
-            color: #ff6500;
-        }
-
-        .speaker-role-scroll {
-            font-size: 0.95rem;
-            color: #ff6500;
-            font-weight: 700;
-            line-height: 1.5;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
-
-        .speaker-company-scroll {
-            font-size: 0.875rem;
-            color: #666666;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 16px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.4s ease;
-        }
-
-        .speaker-card-scroll:hover .social-links {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .social-link {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 101, 0, 0.12), rgba(255, 140, 0, 0.12));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ff6500;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            font-size: 15px;
-            border: 1px solid rgba(255, 101, 0, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .social-link:hover {
-            background: linear-gradient(135deg, #ff6500, #ff8c00);
-            color: white;
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 101, 0, 0.5);
-            border-color: rgba(255, 101, 0, 0.5);
-        }
+        .social-links { display: flex; justify-content: center; gap: 12px; margin-top: 16px; opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
+        .speaker-card-scroll:hover .social-links { opacity: 1; transform: translateY(0); }
+        .social-link { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, rgba(255, 101, 0, 0.12), rgba(255, 140, 0, 0.12)); display: flex; align-items: center; justify-content: center; color: #ff6500; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 15px; border: 1px solid rgba(255, 101, 0, 0.2); backdrop-filter: blur(10px); }
+        .social-link:hover { background: linear-gradient(135deg, #ff6500, #ff8c00); color: white; transform: translateY(-4px) scale(1.1); box-shadow: 0 6px 20px rgba(255, 101, 0, 0.5); border-color: rgba(255, 101, 0, 0.5); }
 
         .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 64px;
-            height: 64px;
+            position: absolute; top: 50%; transform: translateY(-50%); width: 64px; height: 64px;
             background: linear-gradient(135deg, rgba(255, 101, 0, 0.95), rgba(255, 140, 0, 0.95));
-            border: 2px solid rgba(255, 165, 0, 0.6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            box-shadow: 0 8px 30px rgba(255, 101, 0, 0.4);
-            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 165, 0, 0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); color: white; font-size: 28px; font-weight: bold; box-shadow: 0 8px 30px rgba(255, 101, 0, 0.4); backdrop-filter: blur(10px);
         }
+        .scroll-btn::before { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(255, 165, 0, 0.3); animation: ripple 2s infinite; }
+        @keyframes ripple { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+        .scroll-btn:hover { transform: translateY(-50%) scale(1.15); box-shadow: 0 12px 40px rgba(255, 101, 0, 0.6); background: linear-gradient(135deg, rgba(255, 101, 0, 1), rgba(255, 140, 0, 1)); }
+        .scroll-btn:active { transform: translateY(-50%) scale(1.05); }
+        .scroll-btn-left { left: 40px; } .scroll-btn-right { right: 40px; }
 
-        .scroll-btn::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: rgba(255, 165, 0, 0.3);
-            animation: ripple 2s infinite;
-        }
+        .scroll-indicators { display: flex; justify-content: center; gap: 12px; margin-top: 40px; }
+        .scroll-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 165, 0, 0.2); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; }
+        .scroll-dot::after { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(255, 165, 0, 0.4); transform: scale(0); transition: transform 0.4s ease; }
+        .scroll-dot:hover::after { transform: scale(1.8); }
+        .scroll-dot.active { background: linear-gradient(135deg, #ff6500, #ff8c00); width: 32px; border-radius: 5px; box-shadow: 0 0 20px rgba(255, 101, 0, 0.6); }
 
-        @keyframes ripple {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .scroll-btn:hover {
-            transform: translateY(-50%) scale(1.15);
-            box-shadow: 0 12px 40px rgba(255, 101, 0, 0.6);
-            background: linear-gradient(135deg, rgba(255, 101, 0, 1), rgba(255, 140, 0, 1));
-        }
-
-        .scroll-btn:active {
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .scroll-btn-left {
-            left: 40px;
-        }
-
-        .scroll-btn-right {
-            right: 40px;
-        }
-
-        .scroll-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 40px;
-        }
-
-        .scroll-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 165, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .scroll-dot::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: rgba(255, 165, 0, 0.4);
-            transform: scale(0);
-            transition: transform 0.4s ease;
-        }
-
-        .scroll-dot:hover::after {
-            transform: scale(1.8);
-        }
-
-        .scroll-dot.active {
-            background: linear-gradient(135deg, #ff6500, #ff8c00);
-            width: 32px;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(255, 101, 0, 0.6);
-        }
-
-        .particle-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 165, 0, 0.6);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            opacity: 0;
-        }
-
-        @keyframes float {
-            0%, 100% { 
-                transform: translate(0, 0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% { 
-                transform: translate(var(--tx), -100vh) scale(1.5);
-                opacity: 0;
-            }
-        }
+        .particle-container { position: absolute; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .particle { position: absolute; width: 4px; height: 4px; background: rgba(255, 165, 0, 0.6); border-radius: 50%; animation: float 15s infinite; opacity: 0; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translate(var(--tx), -100vh) scale(1.5); opacity: 0; } }
 
         .title-glow {
-            background: linear-gradient(135deg, #ffffff 0%, #ff8c00 50%, #ffffff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s linear infinite;
-            text-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #ff8c00 50%, #ffffff 100%); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: shimmer 3s linear infinite; text-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
         }
-
-        @keyframes shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
+        @keyframes shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
         @media (max-width: 768px) {
-            .scroll-btn {
-                display: none;
-            }
-
-            .speaker-card-scroll {
-                flex: 0 0 260px;
-            }
-
-            .speaker-img-container {
-                height: 280px;
-            }
-
-            .scroll-btn-left,
-            .scroll-btn-right {
-                width: 48px;
-                height: 48px;
-                font-size: 24px;
-            }
+            .scroll-btn { display: none; }
+            .speaker-card-scroll { flex: 0 0 260px; }
+            .speaker-img-container { height: 280px; }
+            .scroll-btn-left, .scroll-btn-right { width: 48px; height: 48px; font-size: 24px; }
         }
 
-        .fade-in-up {
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        .fade-in-up { opacity: 0; animation: fadeInUp 1s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         .fade-delay-1 { animation-delay: 0.2s; }
         .fade-delay-2 { animation-delay: 0.4s; }
-        
         .speaker-card-scroll:nth-child(1) { animation-delay: 0.1s; }
         .speaker-card-scroll:nth-child(2) { animation-delay: 0.15s; }
         .speaker-card-scroll:nth-child(3) { animation-delay: 0.2s; }
@@ -883,17 +398,16 @@
             <div class="hidden lg:flex w-full justify-center items-center space-x-8 text-sm font-medium text-gray-300">
                 <a href="#hero" class="hover:text-orange-400 transition-colors">Home</a>
                 <a href="#about" class="hover:text-orange-400 transition-colors">About</a>
-                <a href="#themes" class="hover:text-orange-400 transition-colors">Themes</a>
-                <a href="#program" class="hover:text-orange-400 transition-colors">Tracks</a>
+                <a href="#themes" class="hover:text-orange-400 transition-colors">Themes & Tracks</a>
                 <a href="#team" class="hover:text-orange-400 transition-colors">Team</a>
                 <a href="#schedule" class="hover:text-orange-400 transition-colors">Schedule</a>
-                <a href="#prizes" class="hover:text-orange-400 transition-colors">Prizes</a>
+                <a href="#awards" class="hover:text-orange-400 transition-colors">Awards</a>
                 <a href="#contact" class="hover:text-orange-400 transition-colors">Contact</a>
             </div>
 
             <div class="flex items-center space-x-4">
                 <button onclick="openRegisterModal()" class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg shadow-orange-500/30 transition-all transform hover:scale-105 whitespace-nowrap">
-                    Pre-Register
+                    Register
                 </button>
                 <button id="navToggleBtn" class="lg:hidden text-white text-2xl" onclick="toggleMobileMenu(this)">☰</button>
             </div>
@@ -902,17 +416,16 @@
         <div id="mobileMenu" class="lg:hidden hidden flex-col space-y-4 pb-4 text-center text-lg border-t border-white/10 pt-4 bg-black">
             <a href="#hero" class="block py-2 hover:text-orange-400 mobile-link">Home</a>
             <a href="#about" class="block py-2 hover:text-orange-400 mobile-link">About</a>
-            <a href="#themes" class="block py-2 hover:text-orange-400 mobile-link">Themes</a>
-            <a href="#program" class="block py-2 hover:text-orange-400 mobile-link">Tracks</a>
+            <a href="#themes" class="block py-2 hover:text-orange-400 mobile-link">Themes & Tracks</a>
             <a href="#team" class="block py-2 hover:text-orange-400 mobile-link">Team</a>
             <a href="#schedule" class="block py-2 hover:text-orange-400 mobile-link">Schedule</a>
-            <a href="#prizes" class="block py-2 hover:text-orange-400 mobile-link">Prizes</a>
+            <a href="#awards" class="block py-2 hover:text-orange-400 mobile-link">Awards</a>
             <a href="#contact" class="block py-2 hover:text-orange-400 mobile-link">Contact</a>
         </div>
     </header>
 
-    <div class="hero-section hero-bg min-h-screen relative">
-        <main id="hero" class="min-h-screen flex items-center justify-center pt-12 px-6 relative z-10" role="main">
+    <div class="hero-section hero-bg min-h-[90vh] relative">
+        <main id="hero" class="min-h-[80vh] flex items-center justify-center pt-20 px-6 relative z-10" role="main">
             <div class="container mx-auto max-w-7xl">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="hero-content text-left">
@@ -998,7 +511,7 @@
         </main>
     </div>
     
-    <section id="about" class="py-24 px-6 bg-black relative z-10">
+    <section id="about" class="py-16 px-6 bg-black relative z-10">
         <div class="container mx-auto max-w-6xl text-white">
             <h2 class="hero-title text-5xl text-orange-400 mb-6">About Witch Hunt</h2>
             <p class="text-lg text-gray-300 max-w-4xl leading-relaxed mb-6">
@@ -1027,18 +540,42 @@
         </div>
     </section>
 
-    <section id="themes" class="py-24 px-6 bg-gradient-to-b from-black to-gray-900 relative z-10">
+    <section id="themes" class="py-16 px-6 bg-gradient-to-b from-black to-gray-900 relative z-10">
         <div class="container mx-auto max-w-7xl">
             <div class="text-center mb-16">
-                <h2 class="hero-title text-5xl md:text-6xl text-white mb-4">Themes</h2>
+                <h2 class="hero-title text-5xl md:text-6xl text-white mb-4">Themes & Tracks</h2>
                 <p class="text-xl text-gray-300">Identify solutions and co-create with stakeholders across these key domains.</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="theme-card theme-edu"><div class="watermark">🎓</div><div class="icon-box">📖</div><h3 class="theme-title">EDUCATION</h3><p class="theme-desc">Closing learning gaps and creating virtual labs to democratize access to quality education.</p></div>
-                <div class="theme-card theme-climate"><div class="watermark">🌿</div><div class="icon-box">🌱</div><h3 class="theme-title">CLIMATE ACTION</h3><p class="theme-desc">Disaster prediction models and climate-resilient farming solutions driven by AI data.</p></div>
-                <div class="theme-card theme-health"><div class="watermark">⚕️</div><div class="icon-box">🏥</div><h3 class="theme-title">HEALTH AND WELL-BEING</h3><p class="theme-desc">Bridging healthcare gaps with low-cost diagnostics and well-being monitoring systems.</p></div>
-                <div class="theme-card theme-cities"><div class="watermark">🏢</div><div class="icon-box">🏙️</div><h3 class="theme-title">SMART CITIES</h3><p class="theme-desc">Enhancing safety through crime prevention algorithms and intelligent traffic management.</p></div>
+                <div class="theme-card theme-edu">
+                    <div class="watermark">🎓</div>
+                    <div class="icon-box">📖</div>
+                    <h3 class="theme-title">Track 01: EDUCATION</h3>
+                    <p class="theme-desc mb-4">Closing learning gaps and creating virtual labs to democratize access to quality education.</p>
+                    <div class="text-xs text-orange-400 mt-2 font-mono">Focus: Virtual Tutors, Accessibility Tools, Personalized Learning</div>
+                </div>
+                <div class="theme-card theme-climate">
+                    <div class="watermark">🌿</div>
+                    <div class="icon-box">🌱</div>
+                    <h3 class="theme-title">Track 02: CLIMATE ACTION</h3>
+                    <p class="theme-desc mb-4">Disaster prediction models and climate-resilient farming solutions driven by AI data.</p>
+                    <div class="text-xs text-orange-400 mt-2 font-mono">Focus: Forecasting, Agri-intelligence, Adaptation Tools</div>
+                </div>
+                <div class="theme-card theme-health">
+                    <div class="watermark">⚕️</div>
+                    <div class="icon-box">🏥</div>
+                    <h3 class="theme-title">Track 03: HEALTH & WELL-BEING</h3>
+                    <p class="theme-desc mb-4">Bridging healthcare gaps with low-cost diagnostics and well-being monitoring systems.</p>
+                    <div class="text-xs text-orange-400 mt-2 font-mono">Focus: Rapid Diagnostics, Maternal Health, Inclusive Care</div>
+                </div>
+                <div class="theme-card theme-cities">
+                    <div class="watermark">🏢</div>
+                    <div class="icon-box">🏙️</div>
+                    <h3 class="theme-title">Track 04: SMART CITIES</h3>
+                    <p class="theme-desc mb-4">Enhancing safety through crime prevention algorithms and intelligent traffic management.</p>
+                    <div class="text-xs text-orange-400 mt-2 font-mono">Focus: Urban Planning, Traffic Management, Public Safety</div>
+                </div>
             </div>
         </div>
     </section>
@@ -1047,26 +584,12 @@
     <div id="modal2" class="modal"><div class="modal-content"><span class="close">&times;</span><h3>📈 Scale of the Initiative</h3><p>Targeting <strong>1000 teams</strong> with majority women representation across India. Led by HopeWorks Foundation, it’s a nationwide movement to democratize innovation.</p></div></div>
     <div id="modal3" class="modal"><div class="modal-content"><span class="close">&times;</span><h3>🤝 Inclusive &amp; Equitable Spaces</h3><p>By involving girls from villages and tier-2/3 cities, every phase of the hackathon becomes a gateway to learning and growth. Beneficiaries of HopeWorks Foundation evolve into an AI-literate, future-ready talent base shaping India’s next generation of changemakers.</p></div></div>
     
-    <section id="program" class="py-24 px-6 bg-gray-900/50 relative z-10 mt-12 border-t border-white/5">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="hero-title text-5xl text-orange-400 mb-6">Program Tracks</h2>
-            <div class="space-y-6">
-                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 01</p><h3 class="text-3xl font-bold text-white">AI for Education</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Personalized learning, virtual tutors, and accessibility tools for democratizing education.</p></div>
-                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 02</p><h3 class="text-3xl font-bold text-white">Climate Resilience</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Forecasting, agri-intelligence, and community-led adaptation tools.</p></div>
-                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 03</p><h3 class="text-3xl font-bold text-white">Health and Well-being</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Rapid diagnostics, maternal health monitoring, and inclusive care assistants.</p></div>
-                <div class="stat-card p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between"><div><p class="text-sm uppercase tracking-[0.3em] text-orange-300 mb-2">Track 04</p><h3 class="text-3xl font-bold text-white">Smart Cities</h3></div><p class="text-gray-400 mt-4 md:mt-0 md:max-w-sm">Urban planning, traffic management, and public safety systems.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SPEAKERS SECTION -->
-    <section id="team" class="speakers-bg py-32 px-6 relative z-10">
+    <section id="team" class="speakers-bg py-20 px-6 relative z-10">
         <div class="particle-container" id="speakersParticleContainer"></div>
         
         <div class="container mx-auto max-w-7xl relative z-10">
             
-            <!-- Section Header -->
-            <div class="text-center mb-20 fade-in-up">
+            <div class="text-center mb-16 fade-in-up">
                 <div class="inline-block px-8 py-3 rounded-full bg-orange-500/10 border border-orange-500/30 mb-8 backdrop-blur-sm">
                     <span class="text-orange-400 text-sm uppercase tracking-[0.3em] font-bold">Meet Our Team</span>
                 </div>
@@ -1078,17 +601,13 @@
                 </p>
             </div>
 
-            <!-- Horizontal Scroll Section -->
             <div class="scroll-wrapper relative fade-in-up fade-delay-1">
-                <!-- Left Scroll Button -->
                 <button class="scroll-btn scroll-btn-left" onclick="scrollSpeakers('left')" aria-label="Scroll left">
                     ‹
                 </button>
 
-                <!-- Speakers Container -->
                 <div class="scroll-container px-6" id="speakersScroll">
                     
-                    <!-- Speaker Card 1 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Chair</span>
@@ -1109,7 +628,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 2 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Co-Chair</span>
@@ -1130,7 +648,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 3 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Co-Chair</span>
@@ -1151,7 +668,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 4 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Chief</span>
@@ -1172,7 +688,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 5 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Finance</span>
@@ -1193,7 +708,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 6 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">PMO</span>
@@ -1214,7 +728,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 7 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Lead</span>
@@ -1235,7 +748,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 8 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Marketing</span>
@@ -1256,7 +768,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 9 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Outreach</span>
@@ -1277,7 +788,6 @@
                         </div>
                     </div>
 
-                    <!-- Speaker Card 10 -->
                     <div class="speaker-card-scroll fade-in-up">
                         <div class="speaker-img-container">
                             <span class="speaker-badge">Member</span>
@@ -1300,13 +810,11 @@
 
                 </div>
 
-                <!-- Right Scroll Button -->
                 <button class="scroll-btn scroll-btn-right" onclick="scrollSpeakers('right')" aria-label="Scroll right">
                     ›
                 </button>
             </div>
 
-            <!-- Enhanced Scroll Indicators -->
             <div class="scroll-indicators fade-in-up fade-delay-2">
                 <div class="scroll-dot active"></div>
                 <div class="scroll-dot"></div>
@@ -1317,7 +825,7 @@
         </div>
     </section>
 
-    <section id="schedule" class="py-24 px-6 bg-gradient-to-b from-gray-900 to-black relative z-10 overflow-hidden">
+    <section id="schedule" class="py-16 px-6 bg-gradient-to-b from-gray-900 to-black relative z-10 overflow-hidden">
         <div class="container mx-auto">
             <h2 class="hero-title text-5xl text-orange-400 mb-12 text-center">Event Roadmap</h2>
             
@@ -1381,9 +889,9 @@
         </div>
     </section>
 
-    <section id="prizes" class="py-24 px-6 bg-black relative z-10 border-b border-white/10">
+    <section id="awards" class="py-16 px-6 bg-black relative z-10 border-b border-white/10">
         <div class="container mx-auto max-w-6xl">
-            <h2 class="hero-title text-5xl text-orange-400 mb-12 text-center">Awards & Prizes</h2>
+            <h2 class="hero-title text-5xl text-orange-400 mb-12 text-center">Awards</h2>
             <div class="flex justify-center mb-16">
                 <div class="inline-block px-8 py-4 bg-orange-500 bg-opacity-10 rounded-full border border-orange-400 border-opacity-50 backdrop-blur-md">
                     <span class="text-2xl md:text-3xl font-bold text-white">Total Prize Pool: <span class="text-orange-400">₹ 19,00,000</span></span>
@@ -1411,7 +919,7 @@
                     <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🌟</div>
                     <h3 class="text-2xl font-bold text-white mb-2 font-orbitron">Special Mention</h3>
                     <div class="text-4xl font-bold text-orange-400 mb-2">₹ 50,000</div>
-                    <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">Per Team (8 Teams)</p>
+                    <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">Per Track (8 Teams)</p>
                     <div class="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Total: ₹ 4,00,000</div>
                 </div>
             </div>
@@ -1421,13 +929,18 @@
         </div>
     </section>
     
-    <section id="contact" class="py-24 px-6 bg-black relative z-10">
+    <section id="contact" class="py-16 px-6 bg-black relative z-10">
         <div class="container mx-auto max-w-4xl text-center">
             <h2 class="hero-title text-5xl text-orange-400 mb-6">Stay in Touch</h2>
             <p class="text-gray-300 mb-12">Have questions about eligibility, partnerships, or volunteering? Drop us a note and the team will respond within two working days.</p>
             <a href="mailto:info@thewitch-hunt.com" class="inline-flex items-center justify-center px-10 py-4 rounded-full border border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white transition-all duration-300">info@thewitch-hunt.com</a>
         </div>
     </section>
+
+    <footer class="py-8 bg-black border-t border-gray-800 text-center relative z-10">
+        <p class="text-gray-500 text-sm">Developed with ❤️ by Cooper BCA Students</p>
+        <p class="text-gray-600 text-xs mt-2">&copy; 2026 Witch Hunt Challenge. All rights reserved.</p>
+    </footer>
 
     <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to Top">
         ↑
@@ -1443,7 +956,7 @@
     <div id="registerModal" class="reg-modal">
         <div class="reg-modal-content">
             <div class="reg-header">
-                <h3 class="text-2xl font-bold text-orange-400 hero-title">Hackathon Pre-Registration</h3>
+                <h3 class="text-2xl font-bold text-orange-400 hero-title">Hackathon Registration</h3>
                 <button onclick="closeRegisterModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
             </div>
             <div class="reg-body">
@@ -1452,9 +965,9 @@
                     <div class="form-group"><label class="form-label">College/Corporate Email Address <span>*</span></label><input type="email" class="form-input" placeholder="Enter your college or corporate email" required></div>
                     <div class="form-group"><label class="form-label">Team Members (Names & Emails)</label><textarea class="form-input h-24" placeholder="Enter names and emails for any team members (e.g., Jane Doe: jane@corp.com, Ali Khan: ali@college.edu)"></textarea><p class="text-xs text-gray-500 mt-2">A maximum of 4 members per team (including yourself) is allowed.</p></div>
                     <div class="form-group"><label class="form-label">Photo of College/Company ID & Masked Aadhaar (Max 5MB) <span>*</span></label><input type="file" id="idProof" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="form-input" required onchange="validateFileSize(this)"><p id="fileError" class="text-red-500 text-sm mt-2 hidden">File size exceeds 5MB limit. Please upload a smaller file.</p></div>
-                    <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-[1.02]">Submit Pre-Registration</button>
+                    <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-[1.02]">Submit Registration</button>
                 </form>
-                <div id="successMessage" class="hidden text-center py-10"><div class="text-6xl mb-4">🎉</div><h3 class="text-2xl font-bold text-white mb-2">Thank You for Pre-Registering!</h3><p class="text-gray-400">We have received your **pre-registration**. We will contact you with the link to the official hackathon platform soon!</p><button onclick="closeRegisterModal()" class="mt-8 px-6 py-2 border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white transition">Close</button></div>
+                <div id="successMessage" class="hidden text-center py-10"><div class="text-6xl mb-4">🎉</div><h3 class="text-2xl font-bold text-white mb-2">Thank You for Registering!</h3><p class="text-gray-400">We have received your registration. We will contact you with the link to the official hackathon platform soon!</p><button onclick="closeRegisterModal()" class="mt-8 px-6 py-2 border border-orange-400 text-orange-400 rounded-full hover:bg-orange-400 hover:text-white transition">Close</button></div>
             </div>
         </div>
     </div>
@@ -1613,4 +1126,5 @@
             }
         });
     </script>
+</body>
 </html>
